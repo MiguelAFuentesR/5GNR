@@ -168,12 +168,20 @@ app.Pam_sim.Grap1_type = app.Grafica1DropDown.Value;
 app.Pam_sim.Grap2_type = app.Grafica2DropDown.Value;
 app.Pam_sim.Grap3_type = app.Grafica3DropDown.Value;
 
-path_x = '/media/miguel/UNiversidad/Tesis/Codigos_Finales/';
-addpath([path_x,'Estimation']);
-addpath([path_x,'Functions']);
-addpath([path_x,'Generation']);
-addpath([path_x,'Graph_Functions']);
-addpath([path_x,'Models']);
-addpath([path_x,'Outputs']);
+path_x = pwd ;
+addpath([path_x,'/Estimation/']);
+addpath([path_x,'/Functions/']);
+addpath([path_x,'/Generation/']);
+addpath([path_x,'/Graph_Functions/']);
+addpath([path_x,'/Models/']);
+addpath([path_x,'/Outputs/']);
+addpath([path_x,'/App/']);
+
+
+%-------------------- WINDOW TIME SIMULATION ------------------------------
+
+app.Pam_sim.Stop_RealTime = 0;
+
+
 
 end

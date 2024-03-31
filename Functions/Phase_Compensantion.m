@@ -1,10 +1,10 @@
-function [Est] = Phase_Compensantion(Parameters)
+function [Est] = Phase_Compensantion(Parameters,Grid_Estimated)
 
 % Inicializar la rejilla temporal para almacenar los símbolos ecualizados
 tempGrid = nrResourceGrid(Parameters.portadora,Parameters.pdsch.NumLayers);
 
 % Extraer símbolos PT-RS de la rejilla recibida y estimada
-[ptrsRx,ptrsHest,~,~,~,ptrsLayerIndices] = nrExtractResources(Parameters.Indices_ptrs,Parameters.Grilla_Subframe_rx,Parameters.CNN_estChannelGrid,tempGrid);
+[ptrsRx,ptrsHest,~,~,~,ptrsLayerIndices] = nrExtractResources(Parameters.Indices_ptrs,Parameters.Grilla_Subframe_rx,Grid_Estimated,tempGrid);
 
 % Ecualizacion de los símbolos PT-RS y asignarlos a tempGrid
 ptrsEq = nrEqualizeMMSE(ptrsRx,ptrsHest,Parameters.noiseEst);
@@ -18,7 +18,7 @@ cpe = nrChannelEstimate(tempGrid,Parameters.Indices_ptrs,Parameters.Simbolos_ptr
 cpe = angle(sum(cpe,[1 3 4]));
 
 %  Asignacion de los símbolos PDSCH ecualizados a tempGrid
-tempGrid(Parameters.Indices_Pdsch) = Parameters.CNN_pdschEq;
+tempGrid(Parameters.Indices_Pdsch) = Parameters.Practical_pdschEq;
 
 % CP en cada símbolo OFDM dentro del rango de referencia
 % PT-RS OFDM
@@ -27,7 +27,7 @@ if numel(Parameters.Informacion_Indices_PDSCH.PTRSSymbolSet) > 0
     tempGrid(:,symLoc,:) = tempGrid(:,symLoc,:).*exp(-1i*cpe(symLoc));
 end
 % Extrae los simbolos
-Parameters.CNN_pdschEq = tempGrid(Parameters.Indices_Pdsch);
+Parameters.Practical_pdschEq = tempGrid(Parameters.Indices_Pdsch);
 
 Est = Parameters;
 end

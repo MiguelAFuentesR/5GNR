@@ -11,14 +11,14 @@ if Parameters.Transmision_IMG || Parameters.Transmision_Bits
     % Envio de datos en funcion a una entrada externa, imagen, fichero, etc
     Bits_faltantes = length(Parameters.trData) - length(Parameters.txbits);
     if Bits_faltantes >= Parameters.step
-        data_2 = Parameters.trData(Parameters.block_posicion+1:Parameters.End_pos);
+        Parameters.data_slot = Parameters.trData(Parameters.block_posicion+1:Parameters.End_pos);
         Parameters.block_posicion = Parameters.End_pos;
         Parameters.End_pos = Parameters.block_posicion + Parameters.step;
     else
         %Enviar los ultimos bits y completar el slot con ceros
         Parameters.Complemento = Parameters.step-Bits_faltantes ;
         data_aux = transpose(zeros(1,Parameters.Complemento));
-        data_2 = [Parameters.trData(Parameters.block_posicion+1:end);data_aux];
+        Parameters.data_slot = [Parameters.trData(Parameters.block_posicion+1:end);data_aux];
     end
 else
     % Se enviaran datos aleatorios perfectos en funcion al numero
@@ -29,17 +29,17 @@ else
 
     for i = 1:Parameters.Numero_CW
         data{i} = randi([0 1],Parameters.Informacion_Indices_PDSCH.G(i),1);
-        data_2  = data{1,1};
+        Parameters.data_slot  = data{1,1};
     end
 end
 
-Parameters.txbits = [Parameters.txbits; data_2];
+Parameters.txbits = [Parameters.txbits; Parameters.data_slot];
 
 
 % Obtener los simbolos Modulados
 
 % Se modulan los bits en el tipo de modulacion definido
-Parameters.Simbolos_pdsch = nrPDSCH(Parameters.portadora,Parameters.pdsch,data_2);
+Parameters.Simbolos_pdsch = nrPDSCH(Parameters.portadora,Parameters.pdsch,Parameters.data_slot);
 
 
 %Crear la grilla de recursos con los datos generados y la insercion de

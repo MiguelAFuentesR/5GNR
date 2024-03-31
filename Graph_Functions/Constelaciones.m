@@ -48,7 +48,7 @@ hold off
 
 %///////////////////////////////////////////
 subplot(4,2,4)
-plot(Parameters.CNN_pdschEq_sin,'.')
+plot(Parameters.Practical_pdschEq_sin,'.')
 hold on
 plot(Parameters.refSymbols,'+')
 title("Constelacion Est CNN sin comp")
@@ -72,39 +72,39 @@ hold off
 
 
 %///////////////////////////////////////////
-subplot(4,2,6)
-plot(Parameters.CNN_2_pdschEq,'.')
-hold on
-plot(Parameters.refSymbols,'+')
-title("Constelacion CNN 2")
-grid on
-xlabel('In-Phase')
-ylabel('Quadrature')
-drawnow;
-hold off
+% subplot(4,2,6)
+% plot(Parameters.CNN_2_pdschEq,'.')
+% hold on
+% plot(Parameters.refSymbols,'+')
+% title("Constelacion CNN 2")
+% grid on
+% xlabel('In-Phase')
+% ylabel('Quadrature')
+% drawnow;
+% hold off
 
-%///////////////////////////////////////////
-subplot(4,2,7)
-plot(Parameters.Autoencoder_pdschEq,'.')
-hold on
-plot(Parameters.refSymbols,'+')
-title("Constelacion Autoencoder")
-grid on
-xlabel('In-Phase')
-ylabel('Quadrature')
-drawnow;
-hold off
-
-%///////////////////////////////////////////
-subplot(4,2,8)
-plot(Parameters.Denoising_pdschEq,'.')
-hold on
-plot(Parameters.refSymbols,'+')
-title("Constelacion Denoising")
-grid on
-xlabel('In-Phase')
-ylabel('Quadrature')
-drawnow;
-hold off
+% %///////////////////////////////////////////
+% subplot(4,2,7)
+% plot(Parameters.Autoencoder_pdschEq,'.')
+% hold on
+% plot(Parameters.refSymbols,'+')
+% title("Constelacion Autoencoder")
+% grid on
+% xlabel('In-Phase')
+% ylabel('Quadrature')
+% drawnow;
+% hold off
+% 
+% %///////////////////////////////////////////
+% subplot(4,2,8)
+% plot(Parameters.Denoising_pdschEq,'.')
+% hold on
+% plot(Parameters.refSymbols,'+')
+% title("Constelacion Denoising")
+% grid on
+% xlabel('In-Phase')
+% ylabel('Quadrature')
+% drawnow;
+% hold off
 
 end
