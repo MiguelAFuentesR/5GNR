@@ -1,7 +1,11 @@
 function [app] = Init_Parameters(app)
 
+app.RangeSliderSNR.Enable = true;
+rango = app.RangeSliderSNR.Value;
 %Modulation init 
+
 value = app.ModulationDropDown.Value;
+
 switch value
     case "QPSK"
         app.Pam_sim.Modulation = "QPSK";
@@ -31,16 +35,16 @@ end
 
 selection = app.TypeSNRDropDown.Value;
 switch selection
-    case "SNR Static"
+    case "Static"
         app.Pam_sim.SNR_STATIC = true;
-    case "SNR Interval"
+    case "Interval"
         app.Pam_sim.SNR_STATIC = false;
 end
 
 
-app.Pam_sim.SNR_Init = app.EditField_SNRinit.Value;
-app.Pam_sim.SNR_intervalos = app.EditField_SNR_step.Value;
-app.Pam_sim.SNR_max = app.Knob_SNR.Value;
+app.Pam_sim.SNR_Init = app.EditField_SNRValue.Value;
+app.Pam_sim.SNR_intervalos = 1;
+app.Pam_sim.SNR_max = round(rango(2));
 %Estimation config
 
 %Values of Estimation selected
@@ -81,31 +85,19 @@ end
 value = app.TypeVelocityDropDown.Value;
 switch value
 
-    case "Vel Static"
+    case "Static"
         app.Pam_sim.Vel_sim_Estatic = true;
-        app.Label_end_vel.Visible = "off";
 
-        app.VelEndLabel.Visible  = "off";
-        app.StepLabel_2.Visible = "off";
-        app.Knob_Vel.Visible = "off";
-        app.EditField_vel_step.Visible = "off";
-
-
-    case "Vel Interval"
+    case "Interval"
         app.Pam_sim.Vel_sim_Estatic = false;
-        app.Label_end_vel.Visible = "on";
-
-        app.VelEndLabel.Visible  = "on";
-        app.StepLabel_2.Visible = "on";
-        app.Knob_Vel.Visible = "on";
-        app.EditField_vel_step.Visible = "on";
     otherwise
 
 end
 % Values of velocity
+aux2 = app.RangeSlider_Vel.Value;
 app.Pam_sim.Vel_init = app.EditField_vel_init.Value;
-app.Pam_sim.Vel_step = app.EditField_vel_step.Value;
-app.Pam_sim.Vel_end = app.Knob_Vel.Value;
+app.Pam_sim.Vel_step = 1;
+app.Pam_sim.Vel_end = aux2(2);
 
 
 %Save parameters

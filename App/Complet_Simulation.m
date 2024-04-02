@@ -4,16 +4,25 @@ try
 
 
     %% ------------------- SIMULATION CONFIGURATION ----------------------------
+    %%%%%%Para el valor del SNR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if app.Pam_sim.SNR_STATIC
+        app.Pam_sim.SNR_Init = app.EditField_SNRValue.Value;
         app.Pam_sim.SNR_dB = app.Pam_sim.SNR_Init:1:app.Pam_sim.SNR_Init; % Relación señal/ruido lineal
     else
-        app.Pam_sim.SNR_dB= app.Pam_sim.SNR_Init:app.Pam_sim.SNR_intervalos:app.Pam_sim.SNR_max;
+        aux = round(app.RangeSliderSNR.Value);
+        app.Pam_sim.SNR_Init = aux(1);
+        app.Pam_sim.SNR_max = aux(2);
+        app.Pam_sim.SNR_dB = app.Pam_sim.SNR_Init:app.Pam_sim.SNR_intervalos:app.Pam_sim.SNR_max;
     end
 
+    %%%%% Para la velocidad %%%%%%%%%%%%%%%%%%%%%%%%%%
     if app.Pam_sim.Vel_sim_Estatic
-        app.Pam_sim.Vel_values = app.Pam_sim.Vel_init ;
+        app.Pam_sim.Vel_values = app.EditField_vel_init.Value;
     else
-        app.Pam_sim.Vel_values = app.Pam_sim.Vel_init:app.Pam_sim.Vel_step:app.Pam_sim.Vel_end  ;
+        aux2 = round(app.RangeSlider_Vel.Value);
+        app.Pam_sim.Vel_init = aux2(1);
+        app.Pam_sim.Vel_end = aux2(2);
+        app.Pam_sim.Vel_values = app.Pam_sim.Vel_init:app.Pam_sim.Vel_step:app.Pam_sim.Vel_end;
     end
 
     app.Pam_sim.models = {'Lineal','Perfect'};
@@ -130,9 +139,10 @@ try
     end
 
 catch error
-   uialert(app.UIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
+  x = 0 ;
+   uialert(app.ChannelEstimationwithANNUIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
 end
-
+%uialert(app.UIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
 %% ------------------------------- END SIMULATION --------------------------------------
 
 
