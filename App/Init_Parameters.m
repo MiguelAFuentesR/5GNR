@@ -14,6 +14,10 @@ app.Graph1.Title.Color = 'w';
 app.Graph2.Title.Color = 'w';
 app.Graph3.Title.Color = 'w';
 app.Graph4.Title.Color = 'w';
+
+app.Graph1_2.Title.Color = 'w';
+app.Graph1_3.Title.Color = 'w';
+app.Graph1_4.Title.Color = 'w';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rango = app.RangeSliderSNR.Value;
 %Modulation init 
