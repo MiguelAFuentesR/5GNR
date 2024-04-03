@@ -10,6 +10,10 @@ app.MSE.Title.Color = 'w';
 app.TIME.Title.Color = 'w';
 app.Unique.Title.Color = 'w';
 
+app.Graph1.Title.Color = 'w';
+app.Graph2.Title.Color = 'w';
+app.Graph3.Title.Color = 'w';
+app.Graph4.Title.Color = 'w';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rango = app.RangeSliderSNR.Value;
 %Modulation init 
@@ -166,9 +170,24 @@ end
 
 app.Pam_sim.Time_Simulation = false;
 
-app.Pam_sim.Grap1_type = app.Grafica1DropDown.Value;
-app.Pam_sim.Grap2_type = app.Grafica2DropDown.Value;
-app.Pam_sim.Grap3_type = app.Grafica3DropDown.Value;
+
+%%%%%Selección de los modelos a graficar en el time simulation
+
+grafica1_type = app.Grafica1DropDown.Value;
+grafica2_type = app.Grafica2DropDown.Value;
+grafica3_type = app.Grafica3DropDown.Value;
+
+app.Pam_sim.Grap1_type = grafica1_type;
+app.Pam_sim.Grap2_type = grafica2_type;
+app.Pam_sim.Grap3_type = grafica3_type;
+
+
+app.Graph1.Title.String = "Model: " + grafica1_type;
+app.Graph2.Title.String = "Model: " + grafica2_type;
+app.Graph3.Title.String = "Model: " + grafica3_type;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 path_x = pwd ;
 addpath([path_x,'/Estimation/']);
