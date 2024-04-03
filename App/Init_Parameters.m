@@ -1,6 +1,16 @@
 function [app] = Init_Parameters(app)
 
 app.RangeSliderSNR.Enable = true;
+
+
+%%%%Configuracion de los titulos %%%%%%%%%%%
+app.BER.Title.Color = 'w';
+app.EVM.Title.Color = 'w';
+app.MSE.Title.Color = 'w';
+app.TIME.Title.Color = 'w';
+app.Unique.Title.Color = 'w';
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rango = app.RangeSliderSNR.Value;
 %Modulation init 
 
