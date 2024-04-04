@@ -77,7 +77,7 @@ MSE
 [xTime, I_Time] = sort(Time);
 
 
-color = {'blue','green','red'};
+color = {'#A8D6FA','#C8FAA8','#FAB6A8'};
 Labels= {app.Pam_sim.Grap1_type,app.Pam_sim.Grap2_type,app.Pam_sim.Grap3_type};
 
 % Sincronization of the labels and  colors 
