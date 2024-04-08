@@ -14,7 +14,7 @@ Parameters.Image = [];
 
 
 if Parameters.Save_Variables 
-    save ('Outputs/CNN/CNN_'+app.Pam_sim.CNNmodel_1+'_'+Parameters.Channel+'_Vel_'+string(Parameters.User_Velocity),'Parameters');
+    save ('Outputs/CNN/CNN_'+string(Parameters.CNNmodel_1)+'_'+Parameters.Channel+'_Vel_'+string(Parameters.User_Velocity),'Parameters');
 end
 
 end

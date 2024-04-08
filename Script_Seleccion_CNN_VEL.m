@@ -15,7 +15,7 @@ app = [];
 app.Pam_sim = [];% Parametros de la simulacion
 
 app.Pam_sim.Modulation = "16QAM";
-app.Pam_sim.Channel = "TDL-A";
+app.Pam_sim.Channel = "TDL-E";
 
 %% SNR Config
 app.Pam_sim.SNR_STATIC = false;
@@ -32,7 +32,7 @@ end
 app.Pam_sim.Vel_sim_Estatic = false;
 
 app.Pam_sim.Vel_init = 0;
-app.Pam_sim.Vel_step = 10;
+app.Pam_sim.Vel_step = 120;
 app.Pam_sim.Vel_end = 120;
 
 
@@ -66,7 +66,7 @@ app.Pam_sim.Save_Variables  = true;
 app.Pam_sim.Transmision_IMG = false; % Envio de una imagen
 app.Pam_sim.Transmision_Bits = false;
 app.Pam_sim.Bits_Deseados = 1200000;
-app.Pam_sim.Num_Frames = 5; %Numero de frames deseados a enviar
+app.Pam_sim.Num_Frames = 1; %Numero de frames deseados a enviar
 app.Pam_sim.Path_IMG = '/media/miguel/Universidad/Tesis/Codigos_Finales/Chacon.png';
 
 %%
@@ -78,17 +78,21 @@ for i = 1:1:8
     disp(["Estimando con Red Neuronal ",i]);
     app.Pam_sim.models = [app.Pam_sim.models 'CNN'];
     app.Pam_sim.estimacionRNA_1 = load("CNN_Modelo"+app.Pam_sim.CNNmodel_1+".mat").estimacionRNA;
-    for Velo = app.Pam_sim.Vel_values
-        app.Pam_sim.SNR_Recorridas =[];
-        app.Pam_sim.User_Velocity = Velo;
-        %Inicialización y configuración de la portadora, Modulacion y canal
-        % Parametros : Tipo de modulacion, Perfil de canal, Velocidad Usuario
-        app.Pam_sim = Simulation_Configuration(app.Pam_sim);% Parametros de la simulacion
+    
+    for snr = app.Pam_sim.SNR_dB
+        disp(['SNR de ',num2str(snr),' dB'])
 
-        for snr = app.Pam_sim.SNR_dB
-            disp(['SNR de ',num2str(snr),' dB'])
+       app.Pam_sim.SNR_lin = snr;
+        for Velo = app.Pam_sim.Vel_values
+
+            app.Pam_sim.User_Velocity = Velo;
+            %Inicialización y configuración de la portadora, Modulacion y canal
+            % Parametros : Tipo de modulacion, Perfil de canal, Velocidad Usuario
+            app.Pam_sim = Simulation_Configuration(app.Pam_sim);% Parametros de la simulacion
+            disp(['Vel ',num2str(Velo),' km/h'])
             app.Pam_sim =Variables_initialization(app.Pam_sim,snr);
-            app.Pam_sim.SNR_Recorridas = [app.Pam_sim.SNR_Recorridas snr];
+
+
             for Indice_Ranura = 0:app.Pam_sim.slots - 1
 
                 disp(['Slot ',num2str(Indice_Ranura),' Enviado'])
@@ -133,7 +137,7 @@ for i = 1:1:8
 
         end
         %Waterfall_Estimation_Slot(app.Pam_sim,Indice_Ranura,snr);
-        Save_parameters_CNN(app.Pam_sim);
+        Save_parameters_CNN_vel(app.Pam_sim);
         %disp("Velocidad de "+Velo+"km/h Terminada")
     end
 end
