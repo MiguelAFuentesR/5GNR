@@ -1,11 +1,7 @@
 function [app] = App_Waterfall_Estimation_Time(app,Parameters,Indice_Ranura,snr)
 
-Filas = 3;
-Columnas = 3;
-Pos = 0;
+
 %% Gráficas con los resultados
-[~,s] = size(Parameters.Time_Grid_Lineal);
-Slot = s/14;  %Numero total de slots actuales 
 
 if mod(Indice_Ranura,10) == 0
     Frame = 1+Indice_Ranura/10;
@@ -18,11 +14,7 @@ Indice_Ranura = mod(Indice_Ranura,10);
 end
 
 drawnow
-%sgtitle([' Respuesta de magnitud de canal estimada para el Frame ' num2str(Frame) ' Slot ' num2str(Indice_Ranura+1) ' con SNR: ' num2str(snr) ' dB'])
 app.Titulo_TimeLabel.Text = ([' Respuesta de magnitud de canal estimada para el Frame ' num2str(Frame) ' Slot ' num2str(Indice_Ranura+1) ' con SNR: ' num2str(snr) ' dB']);
-
-
-%app.Pam_sim.Grap1_type 
 
 %% Description for Graph 1
 EVM_Graph1 = Parameters.(app.Pam_sim.Grap1_type +"_EVM");
@@ -165,6 +157,7 @@ imagesc(app.Graph3,abs(Parameters.("Time_Grid_"+app.Pam_sim.Grap3_type)));
 % %// Adjust limits
 % xlim([0 Slot])
 % xlabel('Time(ms)')
+%
 % if Slot>100
 %     interval = 10;
 % elseif  Slot>30
@@ -174,9 +167,6 @@ imagesc(app.Graph3,abs(Parameters.("Time_Grid_"+app.Pam_sim.Grap3_type)));
 % end
 % 
 % xticks((0:interval:Slot))
-% 
-% 
-% 
 % subplot(Filas,Columnas,[3,6,9]);
 % imagesc(abs(Parameters.Time_Grid_Perfect));
 % xlabel('OFDM Symbol');

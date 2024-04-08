@@ -1,0 +1,44 @@
+                  switch app.Pam_sim.pdsch.Modulation
+                    case "QPSK"
+                        app.Pam_sim.bits_symbol = 2;
+                    case "16QAM"
+                        app.Pam_sim.bits_symbol = 4;
+                    case "64QAM"
+                        app.Pam_sim.bits_symbol = 6;
+                    case "256QAM"
+                        app.Pam_sim.bits_symbol = 8;
+                end
+          
+          
+          
+          
+          
+              app.Pam_sim.symbols_ofdm_slot = 624*14;
+                app.Pam_sim.symbols_info_ofdm_slot = length(app.Pam_sim.Indices_Pdsch);
+                app.Pam_sim.symbols_info_ofdm_FRAME = 10*app.Pam_sim.symbols_info_ofdm_slot;
+
+                app.Pam_sim.bits_per_slot = app.Pam_sim.symbols_ofdm_slot * app.Pam_sim.bits_symbol;
+                app.Pam_sim.bits_info_per_slot = app.Pam_sim.symbols_info_ofdm_slot*app.Pam_sim.bits_symbol;
+
+                app.Pam_sim.bits_info_per_FRAME = 10*app.Pam_sim.bits_info_per_slot;
+
+
+                % UN SLOT CADA 1 ms
+                app.Pam_sim.Total_Transmision_seg = app.Pam_sim.bits_per_slot/1e-3;
+                app.Pam_sim.Total_Transmision_seg_Frame = app.Pam_sim.bits_info_per_FRAME/10e-3
+                app.Pam_sim.Total_Transmision_info_seg = app.Pam_sim.bits_info_per_slot/1e-3;
+                app.Pam_sim.real_throughput_FRAME = [];
+                app.Pam_sim.Frames_transmitted = 0;
+                if app.Pam_sim.Indice_Ranura>0
+                    if mod(Indice_Ranura,10) == 0
+                        Bits_slot_tx =  app.Pam_sim.txbits(end-length(app.Pam_sim.Indices_Pdsch)+1:end);
+                        Bits_slot_rx = app.Pam_sim.Lineal_rxbits(end-length(app.Pam_sim.Indices_Pdsch)+1:end);
+                        [Ber_frame,app.Pam_sim ] = Ber_Estimation(Bits_slot_tx,Bits_slot_rx,app.Pam_sim);
+                        %[Ber_slot,app.Pam_sim ] = Ber_Estimation(Bits_slot_tx,Bits_slot_rx,app.Pam_sim);
+                        Frames_transmitted = Frames_transmitted+1;
+                        Bits_Utils_FRAME = bits_info_per_FRAME-app.Pam_sim.Wrong_Bits; % Bits transmitidos por frame
+                        real_throughput_FRAME = Bits_Utils_FRAME/10e3;
+                        app.Pam_sim.real_throughput_FRAME = [app.Pam_sim.real_throughput_FRAME real_throughput_FRAME];
+                    end
+                end
+

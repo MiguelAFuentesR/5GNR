@@ -11,7 +11,7 @@ Parameters.SNR_Lineal = 10^(snr/10);
 Parameters.block_posicion = 0;
 Parameters.step = Parameters.Informacion_Indices_PDSCH.G;
 Parameters.End_pos = Parameters.Informacion_Indices_PDSCH.G;
-disp(['SNR de ',num2str(snr),' dB'])
+%disp(['SNR de ',num2str(snr),' dB'])
 
 
 
