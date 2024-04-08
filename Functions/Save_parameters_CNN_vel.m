@@ -14,7 +14,7 @@ Parameters.Image = [];
 
 
 if Parameters.Save_Variables 
-    save ('Outputs/CNN/CNN_'+string(Parameters.CNNmodel_1)+'_'+Parameters.Channel+'_SNR_'+string(Parameters.SNR_lin),'Parameters');
+    save ('Outputs/CNN/Vel/CNN_'+string(Parameters.CNNmodel_1)+'_'+Parameters.Channel+'_SNR_'+string(Parameters.SNR_lin),'Parameters');
 end
 
 end
