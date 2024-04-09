@@ -18,6 +18,22 @@ app.Graph4.Title.Color = 'w';
 app.Graph1_2.Title.Color = 'w';
 app.Graph1_3.Title.Color = 'w';
 app.Graph1_4.Title.Color = 'w';
+
+app.Model1Label.Text = app.Grafica1DropDown.Value;
+app.Model2Label.Text = app.Grafica2DropDown.Value;
+app.Model3Label.Text = app.Grafica3DropDown.Value;
+
+app.Model1_MSELabel.Text = "0";
+app.Model2_MSELabel.Text = "0";
+app.Model3_MSELabel.Text = "0";
+
+app.Model1_EVMLabel.Text = "0";
+app.Model2_EVMLabel.Text = "0";
+app.Model3_EVMLabel.Text = "0";
+
+app.Model1_TimeLabel.Text = "0";
+app.Model2_TimeLabel.Text = "0";
+app.Model3_TimeLabel.Text = "0";
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rango = app.RangeSliderSNR.Value;
 %Modulation init 
