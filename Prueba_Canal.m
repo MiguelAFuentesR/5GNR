@@ -8,7 +8,7 @@ portadora.SubcarrierSpacing = 15; %Se usa de acuerdo a la norma TS 138 211
 portadora.CyclicPrefix = "normal"; %Para 60kHz se puede usar la extendida
 
 
-load("Models/Denoising2.mat"); %Este primer modelo corresponde al generado con MATLAB, haciendo variaciones en los parámetros del canal
+load("Models/Denoising.mat"); %Este primer modelo corresponde al generado con MATLAB, haciendo variaciones en los parámetros del canal
 
 %% Se hace la condiguración del PDSCH DM-RS
 
@@ -104,7 +104,7 @@ estChannelGridNN = complex(estChannelGridNN(:,:,:,1),estChannelGridNN(:,:,:,2));
 %
 
 %%%%PARA LA RED DE TIPO DENOISING %%%%%%%%%%%%%%%%%%%
-estChannelGridNN = interpChannelGrid - estChannelGridNN;
+%estChannelGridNN = interpChannelGrid - estChannelGridNN;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rx1 = 10*log10(abs(estChannelGridPerfect(:,10,:)));
 rx2 = 10*log10(abs(estChannelGridNN(:,10,:)));

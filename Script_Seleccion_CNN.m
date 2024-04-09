@@ -15,7 +15,7 @@ app = [];
 app.Pam_sim = [];% Parametros de la simulacion
 
 app.Pam_sim.Modulation = "16QAM";
-app.Pam_sim.Channel = "TDL-E";
+app.Pam_sim.Channel = "TDL-B";
 
 %% SNR Config
 app.Pam_sim.SNR_STATIC = false;
@@ -67,7 +67,7 @@ app.Pam_sim.Transmision_IMG = false; % Envio de una imagen
 app.Pam_sim.Transmision_Bits = false;
 app.Pam_sim.Bits_Deseados = 1200000;
 app.Pam_sim.Num_Frames = 5; %Numero de frames deseados a enviar
-app.Pam_sim.Path_IMG = '/media/miguel/Universidad/Tesis/Codigos_Finales/Chacon.png';
+%app.Pam_sim.Path_IMG = '/media/miguel/Universidad/Tesis/Codigos_Finales/Chacon.png';
 
 %%
 app.Pam_sim.models = {'Lineal','Perfect'};
