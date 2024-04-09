@@ -44,12 +44,13 @@ try
         app.Pam_sim.models = [app.Pam_sim.models 'Practical'];
     end
     if app.Pam_sim.Denoising_Estimation
-        if app.Pam_sim.Denoising_Estimation_resta
-            app.Pam_sim.estimacionRNA_Denoising= load("Denoising2.mat").estimacionRNA;
-        else
-            app.Pam_sim.estimacionRNA_Denoising= load("Denoising.mat").estimacionRNA;
-        end
+
+        app.Pam_sim.estimacionRNA_Denoising= load("Denoising1.mat").estimacionRNA;
         app.Pam_sim.models = [app.Pam_sim.models 'Denoising'];
+    end
+    if app.Pam_sim.Denoising_Estimation_resta
+        app.Pam_sim.estimacionRNA_Denoising_2= load("Denoising2.mat").estimacionRNA;
+        app.Pam_sim.models = [app.Pam_sim.models 'Denoising_2'];
     end
 
     %% ------------------------------- INIT SIMULATION -------------------------------------
@@ -81,25 +82,19 @@ try
                 tStart_Perfect = tic;
                 app.Pam_sim = Perfect_Estimation(app.Pam_sim);
                 app.Pam_sim.tEnd_Perfect = toc(tStart_Perfect);
-                %% ----------------- Estimacion de Canal con CNN ---------------------
-                if app.Pam_sim.CNNEstimation
-                    if app.Pam_sim.CNNEstimation_2
-                        tStart_CNN = tic;
-                        app.Pam_sim = CNN_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_1);
-                        app.Pam_sim.tEnd_CNN = toc(tStart_CNN);
-                        app.Pam_sim.CNN_pdschEq_sin = app.Pam_sim.CNN_pdschEq ;
-
-                        tStart_CNN_2 = tic;
-                        app.Pam_sim = CNN_2_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_2);
-                        app.Pam_sim.tEnd_CNN_2 = toc(tStart_CNN_2);
-                        app.Pam_sim.CNN_2_pdschEq_sin = app.Pam_sim.CNN_2_pdschEq ;
-                    else
-                        tStart_CNN = tic;
-                        app.Pam_sim = CNN_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_1);
-                        app.Pam_sim.tEnd_CNN = toc(tStart_CNN);
-                        app.Pam_sim.CNN_pdschEq_sin = app.Pam_sim.CNN_pdschEq ;
-                    end
-                end
+                   %% ----------------- Estimacion de Canal con CNN ---------------------
+                   if app.Pam_sim.CNNEstimation
+                       tStart_CNN = tic;
+                       app.Pam_sim = CNN_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_1);
+                       app.Pam_sim.tEnd_CNN = toc(tStart_CNN);
+                       app.Pam_sim.CNN_pdschEq_sin = app.Pam_sim.CNN_pdschEq ;
+                   end
+                   if app.Pam_sim.CNNEstimation_2
+                       tStart_CNN_2 = tic;
+                       app.Pam_sim = CNN_2_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_2);
+                       app.Pam_sim.tEnd_CNN_2 = toc(tStart_CNN_2);
+                       app.Pam_sim.CNN_2_pdschEq_sin = app.Pam_sim.CNN_2_pdschEq ;
+                   end
                 %% ----------------- Estimacion de Canal con AUTOENCODER --------------
                 if app.Pam_sim.Autoencoder_Estimation
                     tStart_Autoencoder= tic;
@@ -111,6 +106,12 @@ try
                     tStart_Denoising= tic;
                     app.Pam_sim = Denoising_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_Denoising);
                     app.Pam_sim.tEnd_Denoising= toc(tStart_Denoising);
+                end
+                %% ----------------- Estimacion de Canal con Red Denoising 2--------------
+                if app.Pam_sim.Denoising_Estimation_resta
+                    tStart_Denoising_2= tic;
+                    app.Pam_sim = Denoising_Estimation_2(app.Pam_sim,app.Pam_sim.estimacionRNA_Denoising_2);
+                    app.Pam_sim.tEnd_Denoising_2= toc(tStart_Denoising_2);
                 end
                 %% ----------------- Estimacion de Canal Practica ---------------------
                 if app.Pam_sim.EstimacionPractica

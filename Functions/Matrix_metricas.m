@@ -39,7 +39,12 @@ if Parameters.Denoising_Estimation
     Parameters.Mat_Denoising_BER = [Parameters.Mat_Denoising_BER,Ber_Estimation(Parameters.txbits,Parameters.Denoising_rxbits,Parameters)];
     Parameters.Mat_Denoising_Time = [Parameters.Mat_Denoising_Time mean(Parameters.Denoising_Time)];
 end
-
+if Parameters.Denoising_Estimation_resta
+    Parameters.Mat_Denoising_2_MSE = [Parameters.Mat_Denoising_2_MSE,Parameters.Denoising_2MSE];
+    Parameters.Mat_Denoising_2_EVM = [Parameters.Mat_Denoising_2_EVM, Parameters.Denoising_2EVM];
+    Parameters.Mat_Denoising_2_BER = [Parameters.Mat_Denoising_2_BER,Ber_Estimation(Parameters.txbits,Parameters.Denoising_2_rxbits,Parameters)];
+    Parameters.Mat_Denoising_2_Time = [Parameters.Mat_Denoising_2_Time mean(Parameters.Denoising_2_Time)];
+end
 if Parameters.EstimacionPractica
     Parameters.Mat_Practical_MSE = [Parameters.Mat_Practical_MSE,Parameters.PracticalMSE];
     Parameters.Mat_Practical_EVM = [Parameters.Mat_Practical_EVM, Parameters.PracticalEVM];

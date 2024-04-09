@@ -189,8 +189,6 @@ for Indice_Ranura = 1:app.Pam_sim.slots
             app.Pam_sim.real_throughput_FRAME = [app.Pam_sim.real_throughput_FRAME real_throughput_FRAME];
         end
     end
-
-   
 end
 
 

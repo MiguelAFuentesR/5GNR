@@ -59,6 +59,16 @@ if Parameters.Denoising_Estimation
     Parameters.Time_Grid_Denoising = [Parameters.Time_Grid_Denoising Parameters.Denoising_estChannelGrid];
 end
 
+if Parameters.Denoising_Estimation_resta
+    release(Parameters.evm);
+    Parameters.Denoising_2_EVM_Slot = Parameters.evm(Parameters.Denoising_2_pdschEq);
+    Parameters.Denoising_2_EVM = [Parameters.Denoising_2_EVM, Parameters.Denoising_2_EVM_Slot ];
+    Parameters.Denoising_2EVM = mean(Parameters.Denoising_2_EVM);
+    Parameters.Denoising_2MSE = mean(Parameters.Denoising_2_MSE);
+    Parameters.Denoising_2_Time =[Parameters.Denoising_2_Time Parameters.tEnd_Denoising_2];
+    Parameters.Time_Grid_Denoising_2 = [Parameters.Time_Grid_Denoising_2 Parameters.Denoising_2_estChannelGrid];
+end
+
 if Parameters.EstimacionPractica
     release(Parameters.evm);
     Parameters.Practical_EVM_Slot = Parameters.evm(Parameters.Practical_pdschEq);

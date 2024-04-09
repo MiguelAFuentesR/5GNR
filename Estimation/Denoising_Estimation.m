@@ -10,10 +10,6 @@ Parameters.t_estimation_Denoising = toc(time_prediction);
 
 % Convert results to complex
 Parameters.Denoising_estChannelGrid = complex(Parameters.Denoising_estChannelGrid(:,:,:,1),Parameters.Denoising_estChannelGrid(:,:,:,2));
-if Parameters.Denoising_Estimation_resta
-    Parameters.Denoising_estChannelGrid = Parameters.interpChannelGrid-Parameters.Denoising_estChannelGrid;
-end
-
 
 Parameters.Denoising_Mape = mape(double(Parameters.Denoising_estChannelGrid(:)), Parameters.Perfect_estChannelGrid(:));
 Parameters.Denoising_MSE = [Parameters.Denoising_MSE immse(Parameters.Perfect_estChannelGrid(:,:,:), double(Parameters.Denoising_estChannelGrid(:,:,:)))];

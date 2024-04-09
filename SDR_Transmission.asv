@@ -9,6 +9,7 @@ addpath([path_x,'/Generation/']);
 addpath([path_x,'/Graph_Functions/']);
 addpath([path_x,'/Models/']);
 addpath([path_x,'/Outputs/']);
+addpath([path_x,'/App/']);
 
 rng(45)
 
@@ -16,7 +17,7 @@ app = [];
 app.Pam_sim = [];% Parametros de la simulacion
 app.Pam_sim.Modulation = "64QAM";
 app.Pam_sim.Channel = "TDL-D";
-app.Pam_sim.SNR = 30;
+app.Pam_sim.SNR = 10;
 app.Pam_sim.User_Velocity = 10;
 
 
@@ -31,7 +32,7 @@ app.Pam_sim.Denoising_Estimation = false;
 app.Pam_sim.Denoising_Estimation_resta = false;
 
 
-app.Pam_sim.Compensacion_Fase = true;% Realizar compensacion de fase con pilotos PT-RS para CNN
+app.Pam_sim.Compensacion_Fase = false;% Realizar compensacion de fase con pilotos PT-RS para CNN
 app.Pam_sim.Save_Variables  = true;
 
 %% ------------- Data config
@@ -106,9 +107,9 @@ bits_info_per_FRAME = 10*bits_info_per_slot;
 
 % UN SLOT CADA 1 ms 
 Total_Transmision_seg = bits_per_slot/1e-3;
-Total_Transmision_seg_Frame = bits_info_per_FRAME/10e-3;
+Total_Transmision_seg_Frame = bits_info_per_FRAME/10e-3
 Total_Transmision_info_seg = bits_info_per_slot/1e-3;
-
+app.Pam_sim.real_throughput_FRAME = [];
 Frames_transmitted = 0;
 
 for Indice_Ranura = 1:app.Pam_sim.slots 
@@ -177,18 +178,17 @@ for Indice_Ranura = 1:app.Pam_sim.slots
     %disp(['Slot ',num2str(Indice_Ranura),' Procesado'])
     app.Pam_sim = Metricas_Slot(app.Pam_sim);
     if Indice_Ranura>0 
-    if mod(Indice_Ranura,10) == 0
-        [Ber,app.Pam_sim ] = Ber_Estimation(app.Pam_sim.data_slot,app.Pam_sim);
-        Frames_transmitted = Frames_transmitted+1;
-        
-        app.Pam_sim.Lineal_rxbits(end-length(app.Pam_sim.Indices_Pdsch)+1:end)
-
-        real_throughput_FRAME = Frames_transmitted*bits_info_per_FRAME-app.Pam_sim.Wrong_Bits % Bits transmitidos por frame
+        if mod(Indice_Ranura,10) == 0
+            Bits_slot_tx =  app.Pam_sim.txbits(end-length(app.Pam_sim.Indices_Pdsch)+1:end);
+            Bits_slot_rx = app.Pam_sim.Lineal_rxbits(end-length(app.Pam_sim.Indices_Pdsch)+1:end);
+            [Ber_frame,app.Pam_sim ] = Ber_Estimation(Bits_slot_tx,Bits_slot_rx,app.Pam_sim);
+            %[Ber_slot,app.Pam_sim ] = Ber_Estimation(Bits_slot_tx,Bits_slot_rx,app.Pam_sim);
+            Frames_transmitted = Frames_transmitted+1;
+            Bits_Utils_FRAME = bits_info_per_FRAME-app.Pam_sim.Wrong_Bits; % Bits transmitidos por frame
+            real_throughput_FRAME = Bits_Utils_FRAME/10e3; 
+            app.Pam_sim.real_throughput_FRAME = [app.Pam_sim.real_throughput_FRAME real_throughput_FRAME];
+        end
     end
-        
-    end
-
-   
 end
 
 
@@ -200,9 +200,9 @@ app.Pam_sim = Matrix_metricas(app.Pam_sim); % Metricas por dB
 
 
 Constelaciones(app.Pam_sim);
-%Waterfall_Estimation_Time(app.Pam_sim,Indice_Ranura,app.Pam_sim.SNR);
+%Waterfall_Estimation_Time(app.Pam_sim,Indice_Ranura,a  pp.Pam_sim.SNR);
 snrIdx = 1;
-simThroughput(snrIdx) = simThroughput(snrIdx) + app.Pam_sim.Mat_Practical_BER(end)
+%simThroughput(snrIdx) = simThroughput(snrIdx) + app.Pam_sim.Mat_Practical_BER(end)
 fprintf('\nThroughput(Mbps) for %d frame(s) = %.4f\n',app.Pam_sim.Num_Frames,Total_Transmision_seg/1e6);
 %fprintf('Throughput(%%) for %d frame(s) = %.4f\n',simLocal.NFrames,simThroughput(snrIdx)*100/maxThroughput(snrIdx));
 

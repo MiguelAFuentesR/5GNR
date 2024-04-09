@@ -14,7 +14,7 @@ Parameters.Image = [];
 
 
 if Parameters.Save_Variables 
-    save ('Outputs/AutoEncoder/AutoEncoder_'+string(Parameters.AutoEncoder_Model)+'_'+Parameters.Channel+'_Vel_'+string(Parameters.User_Velocity),'Parameters');
+    save ('Outputs/AutoEncoder/Autoencoder_'+string(Parameters.AutoEncoder_Model)+'_'+Parameters.Channel+'_Vel_'+string(Parameters.User_Velocity),'Parameters');
 end
 
 end
