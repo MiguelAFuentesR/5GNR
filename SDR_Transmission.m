@@ -17,8 +17,8 @@ app = [];
 app.Pam_sim = [];% Parametros de la simulacion
 app.Pam_sim.Modulation = "64QAM";
 app.Pam_sim.Channel = "TDL-D";
-app.Pam_sim.SNR = 10;
-app.Pam_sim.User_Velocity = 10;
+app.Pam_sim.SNR = 1;
+app.Pam_sim.User_Velocity = 100;
 
 
 %% --------------- Estimation Config

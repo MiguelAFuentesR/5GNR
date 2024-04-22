@@ -3,6 +3,13 @@ function [app] = Init_Parameters(app)
 app.RangeSliderSNR.Enable = true;
 
 
+%%% inicialización de los valores del dropdown Time Simulation
+
+app.Model1Label.Text = app.Grafica1DropDown.Value;
+app.Model2Label.Text = app.Grafica2DropDown.Value;
+app.Model3Label.Text = app.Grafica3DropDown.Value;
+
+
 %%%%Configuracion de los titulos %%%%%%%%%%%
 app.BER.Title.Color = 'w';
 app.EVM.Title.Color = 'w';
