@@ -8,7 +8,7 @@ lines = ["-","--",":","-."];
 %% ############### CHANGE THIS SECTION ###############################
 Network = "Denoising";
 Plot_Channel = "TDL-E"; 
-Plot_Vel = "30";
+Plot_Vel = "15";
 %% ##############################################################
 
 
@@ -21,7 +21,7 @@ switch Network
     case "Autoencoder"   
         interval = 1:1:3; % Number of Autoencoder Models 
     case "Denoising"   
-        interval = 1:1:1; % Number of Denoising Models 
+        interval = 1:1:2; % Number of Denoising Models 
         case "Denoising_2"   
         interval = 1:1:1; % Number of Denoising Models 
 end
@@ -49,20 +49,29 @@ for k = interval
  Styles = [Styles string(lines(randi(length(lines))))+string(marks(k))];
 end
 
-label = [label,"Perfect"];
+label = [label,"Ideal"];
 
 
 %% Gráficas de cada cosa
-% figure
-% lh =legend();
 
-%l = tiledlayout(2,2);
+lh =legend();
+
+l = tiledlayout(2,2);
 sgtitle('Condiciones de canal '+Plot_Channel+' a '+Plot_Vel+ 'km/h '+'estimado con '+Network)
 
 for k=interval
     
     x = app.Pam_sim.(Network+string(k)).SNR_Recorridas;
     nexttile(l,1)
+    if Network == "Denoising"
+        if k == 2
+            app.Pam_sim.(Network+string(k)).Mat_Denoising_MSE = app.Pam_sim.(Network+string(k)).Mat_Denoising_2_MSE;
+            app.Pam_sim.(Network+string(k)).Mat_Denoising_EVM = app.Pam_sim.(Network+string(k)).Mat_Denoising_2_EVM;
+            app.Pam_sim.(Network+string(k)).Mat_Denoising_BER = app.Pam_sim.(Network+string(k)).Mat_Denoising_2_BER;
+            app.Pam_sim.(Network+string(k)).Mat_Denoising_Time = app.Pam_sim.(Network+string(k)).Mat_Denoising_2_Time;
+        end
+    end
+    
     %% MSE
     plot(x, app.Pam_sim.(Network+string(k)).("Mat_"+Network+"_MSE"),Styles(k),LineWidth=1.5);
     hold on; grid on; 

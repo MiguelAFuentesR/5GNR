@@ -60,9 +60,10 @@ Parameters.constPlot.EnableMeasurements = 1; % Activar la medida del EVM
 %% Se genera el canal TDL
 
 Parameters.v = Parameters.User_Velocity; %Velocidad del usuario en km/h
-Parameters.fc = physconst('lightspeed'); %Velocidad de la luz
+Parameters.c = physconst('lightspeed'); %Velocidad de la luz
+Parameters.fc = 5e9;%Frecuencia de la portadora
 %Variación por efecto doppler del U.M :
-Parameters.fd = (Parameters.v*1000/3600)/Parameters.fc*Parameters.fc;
+Parameters.fd = (Parameters.v*1000/3600)/Parameters.c*Parameters.fc;
 
 
 Parameters.canal = nrTDLChannel;

@@ -13,5 +13,6 @@ Parameters.noiseEst = var(Parameters.noiseGrid(:));
 Parameters.Lineal_rxbits = [Parameters.Lineal_rxbits;Lineal_bits_received{1,1}<0]; % Bits decodificados
 
 
+
 Est = Parameters;
 end

@@ -20,6 +20,7 @@ Parameters = Variable_Generation(Parameters,'','MSE',false); % Crea variable Per
 Parameters = Variable_Generation(Parameters,'','_EVM',true); % Crea variable Perfect_EVM 
 Parameters = Variable_Generation(Parameters,'','_MSE',true); % Crea variable Perfect_EVM 
 Parameters = Variable_Generation(Parameters,'','_Time',true); % Crea variable Perfect_Time
+Parameters = Variable_Generation(Parameters,'','_Mape_mat',true); % Crea variable _Mape_mat
 
 Parameters.CNN_pdschEq_sin = [];
 

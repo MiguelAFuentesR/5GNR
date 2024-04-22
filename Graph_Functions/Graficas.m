@@ -9,7 +9,7 @@ Labels = ["CNN","Practical","Perfect","Interpolacion","Rayleight","Theorical"] ;
 Labels_2 = ["CNN","Practical","Interpolacion"] ;
 %colors = ["r","g","b","c","m","k"];
 Vel_values = zeros(1,8);
-Vel_values = [5;10 ;20; 30; 60; 90; 120;150];
+Vel_values = [5;30;100];
 colors = ["k"];
 
 
@@ -61,71 +61,76 @@ Mat_CNN_EVM =[];
 Mat_Practical_EVM =[];
 Mat_Lineal_EVM =[];
 
-% 
-% 
-% for i = 1:1:length(Vel_values)
-%     mo = load('Paremeters_Velo_'+string(Vel_values(i))+'.mat');
-%     Pam_sim = mo.Pam_sim;
-% 
-%     Mat_BER(:,:,i) = [Pam_sim.CNN_BER; Pam_sim.Practical_BER; Pam_sim.Perfect_BER; Pam_sim.Lineal_BER];
-%     Mat_EVM(:,:,i) = [Pam_sim.CNN_EVM; Pam_sim.Practical_EVM; Pam_sim.Perfect_EVM; Pam_sim.Lineal_EVM];
-%     Mat_MSE(:,:,i) = [Pam_sim.CNN_MSE; Pam_sim.Practical_MSE; Pam_sim.Lineal_MSE];
-% 
-%     Mat_CNN_MSE(i,:) = Pam_sim.CNN_MSE;
-%     Mat_Practical_MSE(i,:) = Pam_sim.Practical_MSE;
-%     Mat_Lineal_MSE(i,:) = Pam_sim.Lineal_MSE;
-% 
-%     Mat_CNN_BER(i,:) = Pam_sim.CNN_BER;
-%     Mat_Practical_BER(i,:) = Pam_sim.Practical_BER;
-%     Mat_Lineal_BER(i,:) = Pam_sim.Lineal_BER;
-% 
-%     Mat_CNN_EVM(i,:) = Pam_sim.CNN_EVM;
-%     Mat_Practical_EVM(i,:) = Pam_sim.Practical_EVM;
-%     Mat_Lineal_EVM(i,:) = Pam_sim.Lineal_EVM;
-% end
-% 
-% [SNR,VEL] = meshgrid(EbN0_dB,Vel_values);
-% 
-% figure;
-% t = tiledlayout(2,2);
-% %///////////////////////////////////////////
-% ax1 = nexttile
-% surface(VEL,SNR,Mat_CNN_MSE);
-% hcb=colorbar;
-% hcb.Title.String = "SNR (dB)";
-% shading flat
-% xlabel("Velocidad (km/h)")
-% ylabel("MSE")
-% zlabel("EVM (%)")
-% view([80 20])
-% title("Estimación CNN")
-% %///////////////////////////////////////////
-% ax2 = nexttile
-% surface(VEL,SNR,Mat_Practical_MSE);
-% hcb=colorbar;
-% hcb.Title.String = "SNR (dB)";
-% shading flat
-% xlabel("Velocidad (km/h)")
-% ylabel("MSE")
-% zlabel("EVM (%)")
-% view([80 20])
-% 
-% title("Estimación Practica")
-% %///////////////////////////////////////////
-% ax3 = nexttile
-% surface(VEL,SNR,Mat_Lineal_MSE);
-% hcb=colorbar;
-% hcb.Title.String = "SNR (dB)";
-% shading flat
-% xlabel("Velocidad (km/h)")
-% ylabel("MSE")
-% zlabel("EVM (%)")
-% view([80 20])
-% colormap(ax3,gray)
-% title("Estimación Lineal")
-% 
-% set(gca,'XScale','log')
-% 
+
+
+for i = 1:1:length(Vel_values)
+    mo = load('Outputs/TDL-C/Channel_TDL-C_Mod_64QAM_Vel_'+string(Vel_values(i))+'.mat');
+    
+    if exist('mo.Pam_sim','var')
+        Pam_sim = mo.Pam_sim;
+    else 
+        Pam_sim = mo.Parameters;
+    end
+
+    Mat_BER(:,:,i) = [Pam_sim.CNN_BER; Pam_sim.Practical_BER; Pam_sim.Perfect_BER; Pam_sim.Lineal_BER];
+    Mat_EVM(:,:,i) = [Pam_sim.CNN_EVM; Pam_sim.Practical_EVM; Pam_sim.Perfect_EVM; Pam_sim.Lineal_EVM];
+    Mat_MSE(:,:,i) = [Pam_sim.CNN_MSE; Pam_sim.Practical_MSE; Pam_sim.Lineal_MSE];
+
+    Mat_CNN_MSE(i,:) = Pam_sim.CNN_MSE;
+    Mat_Practical_MSE(i,:) = Pam_sim.Practical_MSE;
+    Mat_Lineal_MSE(i,:) = Pam_sim.Lineal_MSE;
+
+    Mat_CNN_BER(i,:) = Pam_sim.CNN_BER;
+    Mat_Practical_BER(i,:) = Pam_sim.Practical_BER;
+    Mat_Lineal_BER(i,:) = Pam_sim.Lineal_BER;
+
+    Mat_CNN_EVM(i,:) = Pam_sim.CNN_EVM;
+    Mat_Practical_EVM(i,:) = Pam_sim.Practical_EVM;
+    Mat_Lineal_EVM(i,:) = Pam_sim.Lineal_EVM;
+end
+
+[SNR,VEL] = meshgrid(EbN0_dB,Vel_values);
+
+figure;
+t = tiledlayout(2,2);
+%///////////////////////////////////////////
+ax1 = nexttile
+surface(VEL,SNR,Mat_CNN_MSE);
+hcb=colorbar;
+hcb.Title.String = "SNR (dB)";
+shading flat
+xlabel("Velocidad (km/h)")
+ylabel("MSE")
+zlabel("EVM (%)")
+view([80 20])
+title("Estimación CNN")
+%///////////////////////////////////////////
+ax2 = nexttile
+surface(VEL,SNR,Mat_Practical_MSE);
+hcb=colorbar;
+hcb.Title.String = "SNR (dB)";
+shading flat
+xlabel("Velocidad (km/h)")
+ylabel("MSE")
+zlabel("EVM (%)")
+view([80 20])
+
+title("Estimación Practica")
+%///////////////////////////////////////////
+ax3 = nexttile
+surface(VEL,SNR,Mat_Lineal_MSE);
+hcb=colorbar;
+hcb.Title.String = "SNR (dB)";
+shading flat
+xlabel("Velocidad (km/h)")
+ylabel("MSE")
+zlabel("EVM (%)")
+view([80 20])
+colormap(ax3,gray)
+title("Estimación Lineal")
+
+set(gca,'XScale','log')
+
 % 
 % figure;
 % t2 = tiledlayout(2,2);
@@ -169,40 +174,40 @@ Mat_Lineal_EVM =[];
 %% METRICAS BER 
 
 
-%% Matrices asociadas a la respuesta de los modelos en funcion de la relacion señal a ruido 
-
-figure();
-plot(EbN0_dB,Pam_sim.CNN_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
-hold on
-plot(EbN0_dB,Pam_sim.Practical_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
-plot(EbN0_dB,Pam_sim.Lineal_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
-%set(gca,'yscale','log')
-grid on
-%xticks(EbN0_dB)
-%set(gca,'xscale','log')
-xlabel("SNR(dB)")
-ylabel("MSE")
-title("MSE en funcion de SNR")
-legend (Labels_2,'Location','northeast')
-
-%% Matrices asociadas al BER de los modelos
-
-
-figure();
-semilogy(EbN0_dB,Pam_sim.CNN_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
-hold on
-semilogy(EbN0_dB,Pam_sim.Practical_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
-semilogy(EbN0_dB,Pam_sim.Perfect_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
-semilogy(EbN0_dB,Pam_sim.Lineal_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
-set(gca,'yscale','log')
-grid on
-%xticks(EbN0_dB)
-%set(gca,'xscale','log')
-snr = 10.^(EbN0_dB/10);
-rayleight = 0.5.*( 1 - sqrt( (0.5.*snr) ./ (1+0.5.*snr) ) );
-semilogy(EbN0_dB, rayleight,'DisplayName','Rayleight');
-%semilogy(EbN0_dB,erfc(sqrt(0.5*10.^(EbN0_dB/10))),'-k')
-xlabel("SNR(dB)")
-ylabel("BER")
-title("BER en funcion de SNR")
-legend (Labels,'Location','northeast')
+% %% Matrices asociadas a la respuesta de los modelos en funcion de la relacion señal a ruido 
+% 
+% figure();
+% plot(EbN0_dB,Pam_sim.CNN_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
+% hold on
+% plot(EbN0_dB,Pam_sim.Practical_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
+% plot(EbN0_dB,Pam_sim.Lineal_MSE,lines(randi(length(lines)))+marks(randi(length(lines))))
+% %set(gca,'yscale','log')
+% grid on
+% %xticks(EbN0_dB)
+% %set(gca,'xscale','log')
+% xlabel("SNR(dB)")
+% ylabel("MSE")
+% title("MSE en funcion de SNR")
+% legend (Labels_2,'Location','northeast')
+% 
+% %% Matrices asociadas al BER de los modelos
+% 
+% 
+% figure();
+% semilogy(EbN0_dB,Pam_sim.CNN_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
+% hold on
+% semilogy(EbN0_dB,Pam_sim.Practical_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
+% semilogy(EbN0_dB,Pam_sim.Perfect_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
+% semilogy(EbN0_dB,Pam_sim.Lineal_BER,lines(randi(length(lines)))+marks(randi(length(lines))))
+% set(gca,'yscale','log')
+% grid on
+% %xticks(EbN0_dB)
+% %set(gca,'xscale','log')
+% snr = 10.^(EbN0_dB/10);
+% rayleight = 0.5.*( 1 - sqrt( (0.5.*snr) ./ (1+0.5.*snr) ) );
+% semilogy(EbN0_dB, rayleight,'DisplayName','Rayleight');
+% %semilogy(EbN0_dB,erfc(sqrt(0.5*10.^(EbN0_dB/10))),'-k')
+% xlabel("SNR(dB)")
+% ylabel("BER")
+% title("BER en funcion de SNR")
+% legend (Labels,'Location','northeast')

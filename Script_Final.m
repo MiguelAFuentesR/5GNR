@@ -17,7 +17,7 @@ app.Pam_sim = [];% Parametros de la simulacion
 
 
 mod = ["QPSK","64QAM","256QAM"];
-canales = ["TDL-B","TDL-E"];
+canales = ["TDL-A","TDL-B","TDL-E","TDL-C"];
 velocidades = [5 30 100];
 
 
@@ -56,7 +56,7 @@ app.Pam_sim.EstimacionPractica = true;
 app.Pam_sim.Transmision_IMG = false; % Envio de una imagen
 app.Pam_sim.Transmision_Bits = false;
 app.Pam_sim.Bits_Deseados = 1200000;
-app.Pam_sim.Num_Frames = 10; %Numero de frames deseados a enviar
+app.Pam_sim.Num_Frames = 7; %Numero de frames deseados a enviar
 app.Pam_sim.Path_IMG = '/media/miguel/Universidad/Tesis/Codigos_Finales/Chacon.png';
 
 %%

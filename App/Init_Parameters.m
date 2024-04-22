@@ -202,6 +202,18 @@ addpath([path_x,'/Models/']);
 addpath([path_x,'/Outputs/']);
 addpath([path_x,'/App/']);
 
+Files = dir(fullfile("Outputs/",'**/*.mat*'));
+numfiles = length(Files);
+mydata = cell(1, numfiles);
+for k = 1:numfiles
+    mydata{k} = Files(k).folder;   
+end
+directory = unique(mydata);
+y_1 = directory+"/";
+
+for k = 1:length(directory)
+    addpath(y_1(k));
+end
 
 %-------------------- WINDOW TIME SIMULATION ------------------------------
 

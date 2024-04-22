@@ -2,12 +2,27 @@ format shortEng
 format compact
 close all
 
-addpath('Estimation');
-addpath('Functions');
-addpath('Generation');
-addpath('Graph_Functions');
-addpath('Models');
-addpath('Outputs');
+path_x = pwd ;
+addpath([path_x,'/Estimation/']);
+addpath([path_x,'/Functions/']);
+addpath([path_x,'/Generation/']);
+addpath([path_x,'/Graph_Functions/']);
+addpath([path_x,'/Models/']);
+addpath([path_x,'/Outputs/']);
+addpath([path_x,'/App/']);
+
+Files = dir(fullfile("Outputs/",'**/*.mat*'));
+numfiles = length(Files);
+mydata = cell(1, numfiles);
+for k = 1:numfiles
+    mydata{k} = Files(k).folder;   
+end
+directory = unique(mydata);
+y_1 = directory+"/";
+
+for k = 1:length(directory)
+    addpath(y_1(k));
+end
 
 rng(45)
 
