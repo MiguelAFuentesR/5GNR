@@ -31,7 +31,7 @@ end
 
 app.Pam_sim.Vel_sim_Estatic = true;
 
-app.Pam_sim.Vel_init = 15;
+app.Pam_sim.Vel_init = 30;
 app.Pam_sim.Vel_step = 10;
 app.Pam_sim.Vel_end = 100;
 
@@ -73,11 +73,11 @@ app.Pam_sim.Path_IMG = '/media/miguel/Universidad/Tesis/Codigos_Finales/Chacon.p
 app.Pam_sim.models = {'Lineal','Perfect'};
 %% Ciclo de Procesamiento (Simulacion transmision en el tiempo )
 
-for i = 1:1:3
-    app.Pam_sim.AutoEncoder_Model = i;
-    disp(["Estimando con Red Neuronal ",i]);
+for i = 1:1:1
+    app.Pam_sim.AutoEncoder_Model = i-1;
+    disp(["Estimando con Red Neuronal ",i-1]);
     app.Pam_sim.models = [app.Pam_sim.models 'Autoencoder'];
-    app.Pam_sim.estimacionRNA_Autoencoder = load("Autoencoder"+app.Pam_sim.AutoEncoder_Model+".mat").estimacionRNA;
+    app.Pam_sim.estimacionRNA_Autoencoder = load("Autoencoder0.mat").estimacionRNA;
 
     for Velo = app.Pam_sim.Vel_values
         app.Pam_sim.SNR_Recorridas =[];

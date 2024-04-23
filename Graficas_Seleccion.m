@@ -6,9 +6,9 @@ marks = ["o","pentagram","square","diamond","*","^","+","hexagram",".","x","_","
 lines = ["-","--",":","-."];
 
 %% ############### CHANGE THIS SECTION ###############################
-Network = "Autoencoder";
+Network = "CNN";
 Plot_Channel = "TDL-E"; 
-Plot_Vel = "15";
+Plot_Vel = "30";
 %% ##############################################################
 
 aux = [];
@@ -19,6 +19,8 @@ switch Network
         interval = 1:1:8; % Number of CNN Models 
     case "Autoencoder"   
         interval = 1:1:3; % Number of CNN Models 
+    case "Denoising"   
+        interval = 1:1:2; % Number of CNN Models 
 end
 
 

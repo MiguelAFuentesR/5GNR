@@ -8,7 +8,7 @@ portadora.SubcarrierSpacing = 15; %Se usa de acuerdo a la norma TS 138 211
 portadora.CyclicPrefix = "normal"; %Para 60kHz se puede usar la extendida
 
 
-load("Models/Denoising.mat"); %Este primer modelo corresponde al generado con MATLAB, haciendo variaciones en los parámetros del canal
+load("Models/Denoising1.mat"); %Este primer modelo corresponde al generado con MATLAB, haciendo variaciones en los parámetros del canal
 
 %% Se hace la condiguración del PDSCH DM-RS
 

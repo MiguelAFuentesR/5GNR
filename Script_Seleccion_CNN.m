@@ -15,7 +15,7 @@ app = [];
 app.Pam_sim = [];% Parametros de la simulacion
 
 app.Pam_sim.Modulation = "16QAM";
-app.Pam_sim.Channel = "TDL-B";
+app.Pam_sim.Channel = "TDL-E";
 
 %% SNR Config
 app.Pam_sim.SNR_STATIC = false;
