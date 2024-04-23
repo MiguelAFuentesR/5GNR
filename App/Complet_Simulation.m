@@ -140,10 +140,10 @@ try
                 app.Pam_sim = Metricas_Slot(app.Pam_sim);
 
                 %Constelaciones(app.Pam_sim);
-                if app.Pam_sim.Constelations 
-                %Ploting last constelation and Compesated constelation
-                    
-                end 
+                % if app.Pam_sim.Constelations 
+                % %Ploting last constelation and Compesated constelation
+                % 
+                % end 
                 if app.Pam_sim.Simple_sim
                     d.Message = "Slot "+string(Indice_Ranura)+" of "+string(app.Pam_sim.slots - 1);
                     d.Value = Indice_Ranura/(app.Pam_sim.slots - 1);
@@ -167,16 +167,18 @@ try
         
         if app.Pam_sim.Transmision_IMG
             figure
+            sgtitle("Image Trasmitted")
             imshow(app.Pam_sim.Image); title('original');
             orig_class = class(app.Pam_sim.Image);
             orig_size = size(app.Pam_sim.Image);
             plots = length(app.Pam_sim.models);
 
             colum = 2;
-            filas = 0;
+            
             filas = ceil(plots/colum);
             l=0;
             figure
+            sgtitle("Results for Channel "+app.Pam_sim.Channel +" Using "+app.Pam_sim.Modulation+" Modulation with "+string(snr)+" dB at "+string(app.Pam_sim.User_Velocity)+" km/h")
             for modelo = app.Pam_sim.models
                 l=l+1;
                 img_received = app.Pam_sim.(modelo+"_rxbits");
