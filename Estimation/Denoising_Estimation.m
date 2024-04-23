@@ -20,4 +20,5 @@ Parameters.Denoising_MSE = [Parameters.Denoising_MSE immse(Parameters.Perfect_es
 [Denoising_bits_received,Denoising_rxSymbols] = nrPDSCHDecode(Parameters.portadora,Parameters.pdsch,Parameters.Denoising_pdschEq,Parameters.noiseEst);
 Parameters.Denoising_rxbits = [Parameters.Denoising_rxbits;Denoising_bits_received{1,1}<0]; % Bits decodificados
 Est = Parameters;
+
 end

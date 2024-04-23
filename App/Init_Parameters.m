@@ -79,7 +79,7 @@ app.Pam_sim.Autoencoder_Estimation = app.AutoencoderCheckBox.Value;
 app.Pam_sim.EstimacionPractica = app.PracticalCheckBox.Value;
 app.Pam_sim.Denoising_Estimation = app.Denoising1CheckBox.Value;
 app.Pam_sim.Denoising_Estimation_resta = app.Denoising2CheckBox.Value;
-
+app.Pam_sim.Model_Phasecomp = app.phase_comp_model.Value;
 
 app.Pam_sim.CNNmodel_1 = app.CNNModel1DropDown.Value;
 app.Pam_sim.CNNmodel_2 = app.CNNModel2DropDown.Value;
@@ -183,6 +183,7 @@ app.Pam_sim.Time_Simulation = false;
 
 
 %%%%%Selección de los modelos a graficar en el time simulation
+app.Pam_sim.Normalized_Time = app.NormalizedTimeCheckBox.Value;
 
 grafica1_type = app.Grafica1DropDown.Value;
 grafica2_type = app.Grafica2DropDown.Value;
@@ -197,6 +198,8 @@ app.Graph1.Title.String = "Model: " + grafica1_type;
 app.Graph2.Title.String = "Model: " + grafica2_type;
 app.Graph3.Title.String = "Model: " + grafica3_type;
 
+app.Pam_sim.Simple_sim = false;
+app.Pam_sim.Time_sim = false;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -208,6 +211,19 @@ addpath([path_x,'/Graph_Functions/']);
 addpath([path_x,'/Models/']);
 addpath([path_x,'/Outputs/']);
 addpath([path_x,'/App/']);
+% Change path in function of the O.S
+if (isunix) % working in UNIX env.
+    DATA_PATH_NAME_IMG = [path_x,'/Outputs/Images/'];
+else % working in Windows env.
+    DATA_PATH_NAME_IMG = [path_x,'\Outputs\Images\'];
+end
+if exist(DATA_PATH_NAME_IMG)
+else
+    mkdir(DATA_PATH_NAME_IMG)
+end
+
+addpath(DATA_PATH_NAME_IMG)
+
 
 Files = dir(fullfile("Outputs/",'**/*.mat*'));
 numfiles = length(Files);
@@ -226,6 +242,8 @@ end
 
 app.Pam_sim.Stop_RealTime = 0;
 
-
+app.Pam_sim.Simple_sim = false;
+app.Pam_sim.Time_sim = false;
+app.Pam_sim.Normalized_Time = app.NormalizedTimeCheckBox.Value;
 
 end

@@ -1,16 +1,5 @@
 function [] = Constelaciones(Parameters)
 drawnow
-if Parameters.Transmision_IMG
-    figure
-    Parameters.CNN_rxbits = Parameters.CNN_rxbits(1:length(Parameters.txbits)-Parameters.Complemento);
-    orig_class = class(Parameters.Image);
-    orig_size = size(Parameters.Image);
-    reconstructed = reshape(typecast(uint8(bin2dec(char(reshape(Parameters.CNN_rxbits, 8, [])+'0').')), orig_class), orig_size);
-    imshow(Parameters.Image); title('original');
-    figure
-    imshow(reconstructed); title('reconstructed')
-    max(abs(double(Parameters.Image(:)) - double(reconstructed(:))))
-end
 
 subplot(4,2,1)
 plot(Parameters.Perfect_pdschEq,'.')

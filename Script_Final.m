@@ -153,7 +153,7 @@ for canal = canales
                        app.Pam_sim = Denoising_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_Denoising);
                        app.Pam_sim.tEnd_Denoising= toc(tStart_Denoising);
                    end
-                   %% ----------------- Estimacion de Canal con Red Denoising --------------
+                   %% ----------------- Estimacion de Canal con Red Denoising 2--------------
                    if app.Pam_sim.Denoising_Estimation_resta
                        tStart_Denoising_2= tic;
                        app.Pam_sim = Denoising_Estimation_2(app.Pam_sim,app.Pam_sim.estimacionRNA_Denoising_2);

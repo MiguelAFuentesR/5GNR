@@ -1,6 +1,10 @@
 function app = Complet_Simulation(app)
 
 try
+    if app.Pam_sim.Simple_sim
+        d = uiprogressdlg(app.ChannelEstimationwithANNUIFigure,'Title','Please Wait',...
+                    'Message','Opening the application');
+    end
 
 
     %% ------------------- SIMULATION CONFIGURATION ----------------------------
@@ -63,6 +67,11 @@ try
         for snr = app.Pam_sim.SNR_dB
             app.Pam_sim =Variables_initialization(app.Pam_sim,snr);
             app.Pam_sim.SNR_Recorridas = [app.Pam_sim.SNR_Recorridas snr];
+            % Check if process is paused
+            if app.Pam_sim.Simple_sim
+                d.Message = "Starting "+snr+" dB";
+                pause(.2)
+            end
             for Indice_Ranura = 0:app.Pam_sim.slots - 1
                 disp(['Slot ',num2str(Indice_Ranura),' Enviado'])
                 app.Pam_sim.Indice_Ranura = Indice_Ranura;
@@ -82,13 +91,14 @@ try
                 tStart_Perfect = tic;
                 app.Pam_sim = Perfect_Estimation(app.Pam_sim);
                 app.Pam_sim.tEnd_Perfect = toc(tStart_Perfect);
-                   %% ----------------- Estimacion de Canal con CNN ---------------------
+                     %% ----------------- Estimacion de Canal con CNN ---------------------
                    if app.Pam_sim.CNNEstimation
                        tStart_CNN = tic;
                        app.Pam_sim = CNN_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_1);
                        app.Pam_sim.tEnd_CNN = toc(tStart_CNN);
                        app.Pam_sim.CNN_pdschEq_sin = app.Pam_sim.CNN_pdschEq ;
                    end
+                   %% ----------------- Estimacion de Canal con CNN_2 ---------------------
                    if app.Pam_sim.CNNEstimation_2
                        tStart_CNN_2 = tic;
                        app.Pam_sim = CNN_2_Estimation(app.Pam_sim,app.Pam_sim.estimacionRNA_2);
@@ -122,23 +132,71 @@ try
 
                 %% ----------------- Compensacion de fase de los Simbolos ----------------
                 if app.Pam_sim.Compensacion_Fase
-                    app.Pam_sim  = Phase_Compensantion(app.Pam_sim);
+                    %app.Pam_sim.Model_Phasecomp = app.phase_comp_model.Value;
+                    app.Pam_sim  = Phase_Compensantion(app.Pam_sim,app.Pam_sim.Model_Phasecomp);
                 end
                 %disp(['Slot ',num2str(Indice_Ranura),' Procesado'])
 
                 app.Pam_sim = Metricas_Slot(app.Pam_sim);
 
                 %Constelaciones(app.Pam_sim);
-                app = App_Waterfall_Estimation_Time(app,app.Pam_sim,Indice_Ranura,snr);
+                if app.Pam_sim.Constelations 
+                %Ploting last constelation and Compesated constelation
+                    
+                end 
+                if app.Pam_sim.Simple_sim
+                    d.Message = "Slot "+string(Indice_Ranura)+" of "+string(app.Pam_sim.slots - 1);
+                    d.Value = Indice_Ranura/(app.Pam_sim.slots - 1);
+                end 
+                if app.Pam_sim.Time_sim
+                    app = App_Waterfall_Estimation_Time(app,app.Pam_sim,Indice_Ranura,snr);
+                end
+               
+                
+               
             end
+            
+            
             app.Pam_sim = Matrix_metricas(app.Pam_sim);
         end
         disp("Velocidad de "+Velo+"km/h Terminada")
         if app.Pam_sim.Save_Variables
-            Save_parameters(app.Pam_sim);
+            app.Parameters = app.Pam_sim;
+            Save_parameters(app.Parameters);
         end
-    end
+        
+        if app.Pam_sim.Transmision_IMG
+            figure
+            imshow(app.Pam_sim.Image); title('original');
+            orig_class = class(app.Pam_sim.Image);
+            orig_size = size(app.Pam_sim.Image);
+            plots = length(app.Pam_sim.models);
 
+            colum = 2;
+            filas = 0;
+            filas = ceil(plots/colum);
+            l=0;
+            figure
+            for modelo = app.Pam_sim.models
+                l=l+1;
+                img_received = app.Pam_sim.(modelo+"_rxbits");
+                img_received = img_received(1:length(app.Pam_sim.txbits)-app.Pam_sim.Complemento);
+                reconstructed = reshape(typecast(uint8(bin2dec(char(reshape(img_received, 8, [])+'0').')), orig_class), orig_size); 
+                subplot(colum,filas,l)
+                imshow(reconstructed); title("Reconstructed using " + string(modelo))
+                max(abs(double(app.Pam_sim.Image(:)) - double(reconstructed(:))));
+                
+            end
+            
+        end
+        %y = uialert(app.ChannelEstimationwithANNUIFigure,["Simulation completed"],"Simulation end","Icon","success");
+        y = uiprogressdlg(app.ChannelEstimationwithANNUIFigure,'Title','Simulation','Message',"Vel "+string(Velo)+" completed");
+        pause(.5)
+    end
+    uialert(app.ChannelEstimationwithANNUIFigure,["Simulation completed"],"Simulation end","Icon","success");
+    if app.Pam_sim.Simple_sim
+        close(d)
+    end
 catch error
   x = 0 ;
    uialert(app.ChannelEstimationwithANNUIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
