@@ -1,4 +1,18 @@
 function [app] = Init_Parameters(app)
+rng(45);
+
+%Generation random colors and maks 
+app.Pam_sim.marks = ["o","pentagram","square","diamond","*","^","+","hexagram",".","x","_","|","v","<",">"];
+app.Pam_sim.lines = ["-","--",":","-."];
+app.Pam_sim.colors = ["#FC572A","#000000","#00EEBB","#0036EE","#EE00C3","#774747","#7ECD19","#AA731B"];;
+app.Pam_sim.Styles = [];
+app.Pam_sim.colors_plot = [];
+app.Pam_sim.LineWidth = 1.2;
+
+for i=1:length(app.Pam_sim.colors)
+    app.Pam_sim.Styles = [app.Pam_sim.Styles string(app.Pam_sim.lines(randi(length(app.Pam_sim.lines))))+string(app.Pam_sim.marks(i))];
+    app.Pam_sim.colors_plot = [app.Pam_sim.colors_plot string(app.Pam_sim.colors(i))];
+end
 
 app.RangeSliderSNR.Enable = true;
 
