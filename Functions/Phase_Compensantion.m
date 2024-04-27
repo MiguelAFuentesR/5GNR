@@ -16,7 +16,7 @@ tempGrid(ptrsLayerIndices) = ptrsEq;
 cpe = nrChannelEstimate(tempGrid,Parameters.Indices_ptrs,Parameters.Simbolos_ptrs);
 
 % Estimacion del angulo de compensacion
-cpe = angle(sum(cpe,[1 3 4]));
+cpe = angle(sum(cpe,[1 3 4]))
 
 %  Asignacion de los símbolos PDSCH ecualizados a tempGrid
 tempGrid(Parameters.Indices_Pdsch) = Parameters.(model+"_pdschEq");

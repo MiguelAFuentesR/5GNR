@@ -1,7 +1,7 @@
 function [Est] = Receiver(Parameters)
 
-
 Parameters.txWaveform = [Parameters.txWaveform; zeros(Parameters.maxChDelay,size(Parameters.txWaveform,2))];
+
 [Parameters.rxWaveform,Parameters.pathGains,Parameters.sampleTimes] = Parameters.canal(Parameters.txWaveform);
 
 %Adicion AWGN
