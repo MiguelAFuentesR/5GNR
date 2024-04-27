@@ -34,11 +34,12 @@ app.Unique.Title.Color = 'w';
 app.Graph1.Title.Color = 'w';
 app.Graph2.Title.Color = 'w';
 app.Graph3.Title.Color = 'w';
-app.Graph4.Title.Color = 'w';
+app.Symbol.Title.Color = 'w';
 
 app.Graph1_2.Title.Color = 'w';
 app.Graph1_3.Title.Color = 'w';
 app.Graph1_4.Title.Color = 'w';
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rango = app.RangeSliderSNR.Value;
 %Modulation init 
@@ -214,6 +215,11 @@ app.Graph3.Title.String = "Model: " + grafica3_type;
 
 app.Pam_sim.Simple_sim = false;
 app.Pam_sim.Time_sim = false;
+
+app.Pam_sim.Constellations_list = app.Grafica1DropDown.Items;
+ app.Pam_sim.Constellations_plot = false;
+ app.Pam_sim.const_plot =[];
+ app.External_plots.AutoResizeChildren = 'off';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
