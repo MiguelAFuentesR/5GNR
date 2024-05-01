@@ -1,0 +1,62 @@
+@startuml Parameters
+
+left to right direction
+'top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+
+node "Complementary modules " as "Complements"{
+    folder "Functions" {
+        file "App_Waterfall_Estimation_Time.m"
+        file "Complet_Simulation.m"
+        file "Init_Parameters.m"
+        file "NR5G.mlapp"
+        file "about_us.mlapp"
+    }
+    folder "Estimation" {
+        file "Autoencoder_Estimation.m"
+        file "CNN_2_Estimation.m"
+        file "CNN_Estimation.m"
+        file "Denoising_Estimation.m"
+        file "Denoising_Estimation_2.m"
+        file "Lineal_Estimation.m"
+        file "Perfect_Estimation.m"
+        file "Practical_Estimation.m"
+    }
+}
+
+@enduml

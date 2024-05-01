@@ -1,0 +1,58 @@
+@startuml App_Folder
+left to right direction
+'top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+node "Execution Elements" as "Execution"{
+    folder "App" {
+
+        file "App_Waterfall_Estimation_Time.m"
+        file "Complet_Simulation.m"
+        file "Init_Parameters.m"
+        file "NR5G.mlapp"
+        file "about_us.mlapp"
+        
+        'file "about_us.mlapp"
+        ' file "NR5G.mlapp"
+        '  file "Complet_Simulation.m"
+        '  file "App_Waterfall_Estimation_Time.m"
+        '  file "Init_Parameters.m"
+    }
+}
+
+
+@enduml

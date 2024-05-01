@@ -1,0 +1,81 @@
+@startuml Receiver
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+
+class Receiver {
+  -Parameters: struct
+  +Est: struct
+  +Receiver(Parameters)
+  +addDelayToTxWaveform()
+  +applyChannelEffects()
+  +addAWGN()
+  +performTimingSynchronization()
+  +demodulateOFDM()
+}
+
+class Parameters {
+  -txWaveform: double[]
+  -maxChDelay: double
+  -rxWaveform: double[]
+  -pathGains: double[]
+  -sampleTimes: double[]
+  -canal: nrTDLChannel
+  -N0: double
+  -noise: double[]
+  -info_OFDM: nrOFDMInfo
+  -pathFilters: double[]
+  -offset: double
+  -Grilla_Subframe_rx: double[]
+  -portadora: nrCarrierConfig
+}
+
+class nrTDLChannel {
+  +nrTDLChannel(Parameters.txWaveform): [rxWaveform, pathGains, sampleTimes]
+}
+
+class nrOFDMDemodulate {
+  +nrOFDMDemodulate(Parameters.portadora, Parameters.rxWaveform): Grilla_Subframe_rx
+}
+
+class nrPerfectTimingEstimate {
+  +nrPerfectTimingEstimate(pathGains, pathFilters): [offset, mag]
+}
+
+Receiver -left- Parameters
+Receiver -up-> nrTDLChannel: Uses
+Receiver --> nrOFDMDemodulate: Uses
+Receiver -right-> nrPerfectTimingEstimate: Uses
+@enduml

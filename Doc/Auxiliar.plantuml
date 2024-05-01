@@ -1,0 +1,74 @@
+@startuml Auxiliar
+
+left to right direction
+'top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+
+node "Auxiliar ANNs Folders" as "Aux_folder"{
+    folder "Generation" {
+        file "Generation_CNN_Model1.m"
+        file "Generation_CNN_Model2.m"
+        file "Generation_CNN_Model3_4_5.m"
+        file "Generation_CNN_Model6_7_8.m"
+        file "Generation_Denosing_Model1_2.m"
+        file "Generation_Autoencoder_Model1_2_3.m"
+        file "Training_Data_File.m"
+    }
+    folder "Models" {
+
+
+        file "Denoising2.mat"
+        file "Denoising1.mat"
+
+        file "Autoencoder3.mat"
+        file "Autoencoder2.mat"
+        file "Autoencoder1.mat"
+        
+
+         file "CNN_Modelo8.mat"
+        file "CNN_Modelo7.mat"
+        file "CNN_Modelo6.mat"
+        file "CNN_Modelo5.mat"
+        file "CNN_Modelo4.mat"
+        file "CNN_Modelo3.mat"
+        file "CNN_Modelo2.mat"
+        file "CNN_Modelo1.mat"
+
+    }
+}
+@enduml

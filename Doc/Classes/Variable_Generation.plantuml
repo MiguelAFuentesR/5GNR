@@ -1,0 +1,48 @@
+@startuml Variable_Generation
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+
+class Variable_Generation {
+  -Parameters: struct
+  +Variable_Generation(Parameters, Complement1, Complement2, arreglo: bool)
+}
+
+class Parameters {
+  -models: cell
+}
+
+Variable_Generation -- Parameters
+
+@enduml

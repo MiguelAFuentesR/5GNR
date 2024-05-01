@@ -1,0 +1,137 @@
+@startuml Data
+
+'left to right direction
+'top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+node {
+    Fontcolor #000000
+    LineThickness 1
+    LineColor black
+}
+folder {
+    Fontcolor  #FFFFFF
+    BackGroundColor #004073
+    LineThickness 1
+    LineColor black
+}
+package {
+    BackGroundColor #12bdb9
+    LineThickness 1
+    LineColor black
+}
+
+file {
+    BackGroundColor #d3d6de
+    LineThickness 1
+    LineColor black
+}
+
+component{
+    BackGroundColor #d3d6de
+    LineThickness 1
+    LineColor black
+}
+</style>
+
+
+
+
+
+node "Data plotting" as "Storage"{
+    folder "Graph_Functions" as "Graph" {
+        file "Waterfall_Estimation_Time.m"
+        file "Waterfall_Estimation_Slot.m"
+        file "Selection_Graphs.m"
+        file "Script_Selection_CNN_VEL.m"
+        file "Script_Selection_Denoising.m"
+        file "Script_Selection_AutoEncoder.m"
+        file "Script_Seleccion_CNN.m"
+        file "Rendiment_Graph.m"
+        file "Graph_CNN_Seleccion.m"
+        file "Final_Graphs.m"
+
+    }
+    folder "Outputs" {
+        [Data Base for simulation results]
+        '  file "about_uspp"
+        ' file "NR5G.mp"
+    }
+
+
+    database " Channel Results" as "Results"{
+
+        package "TDL-A" as "TDLA"{
+            file "TDL-A.. .mat"
+
+        }
+        package "TDL-B" as "TDLB"{
+            file "TDL-B.. .mat"
+        }
+        package "TDL-C" as "TDLC"{
+            file "TDL-C.. .mat"
+        }
+        package "TDL-D" as "TDLD"{
+            file "TDL-D.. .mat"
+        }
+        package "TDL-E" as "TDLE"{
+            file "TDL-E.. .mat"
+        }
+
+        file "Mod_(QPSK-MQAM)_Vel_(5,30,...).mat" as f1
+    }
+
+    database "ANN Caracterization" as "ANN"{
+
+
+        package "Images" as "Images"{
+            file ".png"
+        }
+
+        package "CNN" as "CNN"{
+            file ".mat" as a3
+        }
+
+        package "Denoising" as "Denoising"{
+            file ".mat" as at
+        }
+        package "Autoencoder" as "Autoencoder"{
+            file ".mat" as a2
+
+        }
+
+        file "TDL-(A,B,C,D,E)_(QPSK,64QAM,256QAM)_(5,30,100)" as f2
+        file "Autoencoder_(1,2,3)_TDL-E_Vel_15" as f3
+        file "CNN_(1,...,8)_TDL-(E-B)_Vel_30" as f4
+        file "Denosing_(1-2)_TDL-E_Vel_30" as f5
+
+    }
+
+
+}
+
+Graph -[hidden]-> Results
+Graph ....down..^ Outputs
+
+Outputs -right--> Results
+Outputs -down--> ANN
+
+f1 .up. TDLA
+f1 .up. TDLB
+f1 .up. TDLC
+f1 .up. TDLD
+f1 .up. TDLE
+
+f2 .up. Images
+f3 .up. Autoencoder
+f4 .up. CNN
+
+f5 .down. Denoising
+
+
+
+@enduml

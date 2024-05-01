@@ -1,0 +1,136 @@
+@startuml Simulation_Configuration
+
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 30
+
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+class Simulation_Configuration {
+  -Parameters: struct
+  +Est: struct
+  +Simulation_Configuration(Parameters)
+  +Reference_Points(modulation: string): Puntos
+}
+
+class Parameters {
+  -fc: double
+  -portadora: nrCarrierConfig
+  -pdsch: nrPDSCHConfig
+  -modulation: string
+  -constPlot: comm.ConstellationDiagram
+  -v: double
+  -c: double
+  -fd: double
+  -canal: nrTDLChannel
+  -info_OFDM: nrOFDMInfo
+  -infoCanal: info
+  -maxChDelay: double
+  -Complemento: double
+  -Image: matrix
+  -trData: double[]
+  -slots: double
+  -Num_Frames: double
+  -simbolos_ranura: double
+  -Bits_Deseados: double
+  -Transmision_IMG: bool
+  -Path_IMG: string
+  -Transmision_Bits: bool
+  -refSymbols: double[]
+  -evm: comm.EVM
+  -Simbolos_dmrs: double[]
+  -Indices_dmrs: double[]
+  -Simbolos_ptrs: double[]
+  -Indices_ptrs: double[]
+  +Simulation_Configuration(Parameters)
+}
+
+class nrCarrierConfig {
+  -NCellID: int
+  -NSizeGrid: int
+  -SubcarrierSpacing: int
+  -CyclicPrefix: string
+}
+
+class nrPDSCHConfig {
+  -PRBSet: int[]
+  -SymbolAllocation: int[]
+  -MappingType: string
+  -NID: int
+  -RNTI: int
+  -VRBToPRBInterleaving: int
+  -NumLayers: int
+  -Modulation: string
+  -DMRS: struct
+  -EnablePTRS: int
+  -PTRS: struct
+}
+
+class comm.ConstellationDiagram {
+  -ReferenceConstellation: Puntos
+  -EnableMeasurements: int
+}
+
+class nrTDLChannel {
+  -Seed: int
+  -DelayProfile: string
+  -DelaySpread: double
+  -MaximumDopplerShift: double
+  -NumTransmitAntennas: int
+  -NumReceiveAntennas: int
+  -SampleRate: double
+}
+
+class nrOFDMInfo {
+  -SampleRate: double
+}
+
+class info {
+  -MaximumChannelDelay: double
+}
+
+class comm.EVM {
+  -ReferenceSignalSource: string
+  -ReferenceConstellation: double[]
+}
+
+Simulation_Configuration -- Parameters
+Simulation_Configuration --right-- Reference_Points
+Parameters *-left-- nrCarrierConfig
+Parameters *- nrPDSCHConfig
+Parameters *- comm.ConstellationDiagram
+Parameters *-left-- nrTDLChannel
+Parameters *-down- nrOFDMInfo
+Parameters *-down- info
+Parameters *-up- comm.EVM
+@enduml

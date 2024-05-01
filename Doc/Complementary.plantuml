@@ -1,0 +1,69 @@
+@startuml Complementary
+
+left to right direction
+'top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+
+node "Complementary modules " as "Complements"{
+    folder "Functions" {
+        file "Matrix_metricas.m"
+        file "Metricas_Slot.m"
+        file "Phase_Compensantion.m"
+        file "Receiver.m"
+        file "Save_parameters.m"
+        file "Simulation_Configuration.m"
+        file "Transmitter.m"
+        file "Variable_Generation.m"
+        file "Variables_initialization.m"
+        file "Ber_Estimation.m"
+        file "Save_parameters_ScriptFinal.m"
+        file "hPreprocessInput.m"
+    }
+    folder "Estimation" {
+        file "Autoencoder_Estimation.m"
+        file "CNN_2_Estimation.m"
+        file "CNN_Estimation.m"
+        file "Denoising_Estimation.m"
+        file "Denoising_Estimation_2.m"
+        file "Lineal_Estimation.m"
+        file "Perfect_Estimation.m"
+        file "Practical_Estimation.m"
+    }
+}
+
+@enduml

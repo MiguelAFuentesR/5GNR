@@ -1,0 +1,89 @@
+@startuml Transmitter
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+class Transmitter {
+  -Parameters: struct
+  +Est: struct
+  +Transmitter(Parameters)
+  +generateDataSlot()
+  +modulateBits()
+  +createResourceGrid()
+  +modulateResourceGrid()
+}
+
+class Parameters {
+  -portadora: nrCarrierConfig
+  -Numero_CW: double
+  -trData: double[]
+  -txbits: double[]
+  -step: double
+  -Indice_Ranura: double
+  -Transmision_IMG: bool
+  -Transmision_Bits: bool
+  -data_slot: double[]
+  -Complemento: double
+  -Simbolos_pdsch: double[]
+  -Grilla_Subframe: double[]
+  -Indices_Pdsch: double[]
+  -Indices_dmrs: double[]
+  -Indices_ptrs: double[]
+  -txWaveform: double[]
+  -waveformInfo: struct
+  -txWaveform_sincanal: double[]
+}
+
+class nrCarrierConfig {
+  -NSlot: double
+}
+
+class nrOFDMModulate {
+  +nrOFDMModulate(Parameters.portadora, Parameters.Grilla_Subframe): [txWaveform, waveformInfo]
+}
+
+class nrPDSCH {
+  +nrPDSCH(Parameters.portadora, Parameters.pdsch, Parameters.data_slot): Simbolos_pdsch
+}
+
+class nrResourceGrid {
+  +nrResourceGrid(Parameters.portadora, Parameters.pdsch.NumLayers): Grilla_Subframe
+}
+
+Transmitter -left- Parameters
+Transmitter --> nrCarrierConfig: Uses
+Transmitter --> nrOFDMModulate: Uses
+Transmitter -up-> nrPDSCH: Uses
+Transmitter -right-> nrResourceGrid: Uses
+@enduml

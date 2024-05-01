@@ -1,0 +1,166 @@
+@startuml  Script_structure
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+
+
+
+<style>
+
+node {
+    Fontcolor #000000
+    LineThickness 1
+    LineColor black
+}
+folder {
+    Fontcolor  #FFFFFF
+    BackGroundColor #004073
+    LineThickness 1
+    LineColor black
+}
+package {
+    BackGroundColor #12bdb9
+    LineThickness 1
+    LineColor black
+}
+
+file {
+    BackGroundColor #d3d6de
+    LineThickness 1
+    LineColor black
+}
+
+component{
+    BackGroundColor #d3d6de
+    LineThickness 1
+    LineColor black
+}
+
+activityDiagram {
+    diamond {
+        BackgroundColor #004073
+        FontColor white
+        LineColor #004073
+
+    }
+    arrow {
+        FontColor black
+    }
+    partition {
+        LineColor #004073
+        RoundCorner 10
+        BackgroundColor PeachPuff
+    }
+    note {
+        FontColor Blue
+        LineColor #004073
+        BackgroundColor #ccf
+    }
+}
+
+</style>
+
+
+
+
+start
+
+if (SNR Estático?) then (<color:red>Sí)
+:Establecer SNR Estático;
+else (No)
+:Establecer SNR Inicial;
+:Configurar Intervalos de SNR;
+:Establecer SNR Máximo;
+endif
+
+:Configurar Compensación de Fase;
+
+if (Transmisión de Imagen?) then (<color:red>Sí)
+:Definir Ruta de la Imagen;
+:Definir Parámetros de Transmisión de Imagen;
+:Cargar Imagen;
+elseif (Transmisión de Bits?) then (<color:red>Sí)
+:Definir Parámetros de Transmisión de Bits;
+:Establecer Cantidad de Bits Deseados;
+:Calcular Número de Frames;
+else (No)
+:Transmisión de Imagen y Bits Desactivada;
+:Transmisión de Frames;
+:Establecer Cantidad de Frames Deseados;
+endif
+
+:Configurar Modelos de Estimación;
+
+if (Estimación de Canal con CNN?) then (<color:red>Sí)
+:Cargar Modelo de CNN;
+:Activar Estimación de Canal con CNN;
+endif
+
+if (Estimación de Canal con CNN_2?) then (<color:red>Sí)
+:Cargar Modelo de CNN_2;
+:Activar Estimación de Canal con CNN_2;
+endif
+
+if (Estimación de Canal con Autoencoder?) then (<color:red>Sí)
+:Cargar Modelo de Autoencoder;
+:Activar Estimación de Canal con Autoencoder;
+endif
+
+if (Estimación de Canal Práctica?) then (<color:red>Sí)
+:Activar Estimación de Canal Práctica;
+endif
+
+if (Estimación de Canal con Red Denoising?) then (<color:red>Sí)
+:Cargar Modelo de Red Denoising;
+:Activar Estimación de Canal con Red Denoising;
+endif
+
+if (Estimación de Canal con Red Denoising 2?) then (<color:red>Sí)
+:Cargar Modelo de Red Denoising 2;
+:Activar Estimación de Canal con Red Denoising 2;
+endif
+
+:Iniciar Simulación de Transmisión;
+
+while (Canal) is (en canales)
+    :Configurar Canal;
+    while (Modulación) is (en modulaciones)
+        :Configurar Modulación;
+        while (Velocidad) is (en velocidades)
+            :Establecer Velocidad del Usuario;
+            while (SNR) is (en SNR(dB))
+                
+                :Configurar SNR;
+
+                :Configurar Portadora, Modulación y Canal;
+                :Inicialización de Parámetros;
+                while (Slot) is (Slots por  \n frames enviados)
+                    :Procesamiento de Slot;
+                    :Transmisor;
+                    :Receptor;
+                    :Estimación de Canal Lineal;
+                    :Estimación de Canal Perfecta;
+                    :Estimación de Canal con CNN;
+                    :Estimación de Canal con CNN_2;
+                    :Estimación de Canal con Autoencoder;
+                    :Estimación de Canal con Red Denoising;
+                    :Estimación de Canal con Red Denoising 2;
+                    :Estimación de Canal Práctica;
+                    :Métricas del Slot;
+                endwhile
+
+            endwhile
+            :Métricas Matriz (cada dB);
+        endwhile
+    endwhile
+endwhile
+partition End {
+    :Guardar Parámetros;
+}
+
+
+@enduml
+
+
+
+

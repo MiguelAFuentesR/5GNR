@@ -1,0 +1,155 @@
+@startuml App
+
+'left to right direction
+top to bottom direction
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+'scale 1800*1800
+
+<style>
+node {
+  Fontcolor #000000
+  LineThickness 1
+  LineColor black
+}
+folder {
+  Fontcolor  #FFFFFF
+  BackGroundColor #004073
+  LineThickness 1
+  LineColor black
+}
+package {
+  BackGroundColor #025080
+  LineThickness 1
+  LineColor black
+}
+
+file {
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+
+component{
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+</style>
+
+node "DLS 5G/6G" as "n1"{
+
+
+
+  actor Usuario as User
+
+
+  package "Parameters" as parameters{
+
+    [User configuration]  as us_config
+    file "Channel " as f1
+    file "Modulation " as f2
+    file "SNR interval " as f3
+    file "Speed " as f4
+    file "Mode Transmission " as f5
+    file "Selection \n  ANN Models " as f6
+  }
+
+
+
+  package "External Plots" as plots{
+    [Constellations]
+    [Image \n received]
+  }
+
+  package "Real Time" as real_time{
+    [User real time \n Changes] as real_changes
+    file "Speed " as vel
+    file "Channel " as cha
+    file "Modulation " as mod
+    file "SNR " as snr
+    file "ANN Estimator " as ann
+    file "Type plot" as type
+  }
+  package "Time Simulation" as time_simu{
+
+     file "Plot metrics" as f7
+    file "Plot Channel \n Estimated " as f8
+    file "Plot Constellation" as f9
+    file "Plot OFDM symbol" as f10
+ 
+ 
+  }
+  folder "Models" as Models{
+    database "ANN Models" as "Results"{
+    }
+
+  }
+
+    folder "Outputs" as output{
+    database "Channel Results" as "Results_channels"{
+    }
+
+  }
+
+    package "Graphics" as graphics{
+    [Multiple]
+    [Simple]
+
+    file "EVM " as EVM
+
+    file "BER " as BER
+
+    file "SNR " as SNR
+
+    file "MSE " as MSE
+    file "Time " as Time
+  }
+
+}
+
+real_changes .up.> snr
+real_changes .up.> mod
+real_changes .up.> vel
+real_changes .right.> ann
+real_changes .down.> type
+real_changes .down.> cha
+
+
+User ..up..> real_changes
+User --left....> plots
+
+User ----> parameters
+
+User ----> Multiple
+User ----> Simple
+
+User ---left---> time_simu
+
+
+
+parameters ..up--^ time_simu
+
+us_config -left-^ f1
+us_config -right-^ f2
+us_config -down-^ f3
+us_config -down-^ f4
+us_config -down-^ f5
+us_config -up-^ f6
+
+f6 --  Results
+graphics -up-  output
+
+
+Simple  --^ SNR
+Multiple  --^ SNR
+EVM ^-up-^ SNR
+BER ^-up-^ SNR
+MSE ^-left-^ SNR
+Time ^-right-^ SNR
+
+
+'graphics -[hidden]- parameters
+
+@enduml

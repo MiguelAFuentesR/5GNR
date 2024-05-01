@@ -1,0 +1,80 @@
+@startuml Phase_Compensation
+
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+scale 1800*1800
+
+<style>
+    node {
+        Fontcolor #000000
+        LineThickness 1
+        LineColor black
+    }
+    folder {
+        Fontcolor  #FFFFFF
+        BackGroundColor #004073
+        LineThickness 1
+        LineColor black
+    }
+    package {
+        BackGroundColor #12bdb9
+        LineThickness 1
+        LineColor black
+    }
+
+    file {
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+
+    component{
+        BackGroundColor #d3d6de
+        LineThickness 1
+        LineColor black
+    }
+</style>
+
+class Phase_Compensation {
+  -Parameters: struct
+  +Est: struct
+  +Phase_Compensation(Parameters, model)
+  +equalizePTRS()
+  +estimateResidualChannel()
+  +estimatePhaseCompensationAngle()
+}
+
+class Parameters {
+  -portadora: nrCarrierConfig
+  -pdsch: nrPDSCHConfig
+  -Indices_ptrs: double[]
+  -Grilla_Subframe_rx: double[]
+  -noiseEst: double[]
+  -Informacion_Indices_PDSCH: struct
+  -Simbolos_ptrs: double[]
+  -Indices_Pdsch: double[]
+}
+
+class nrResourceGrid {
+  +nrResourceGrid(Parameters.portadora, Parameters.pdsch.NumLayers): tempGrid
+}
+
+class nrExtractResources {
+  +nrExtractResources(Parameters.Indices_ptrs, Parameters.Grilla_Subframe_rx, Grid_Estimated, tempGrid): [ptrsRx, ptrsHest, ptrsLayerIndices]
+}
+
+class nrEqualizeMMSE {
+  +nrEqualizeMMSE(ptrsRx, ptrsHest, Parameters.noiseEst): ptrsEq
+}
+
+class nrChannelEstimate {
+  +nrChannelEstimate(tempGrid, Parameters.Indices_ptrs, Parameters.Simbolos_ptrs): cpe
+}
+
+Phase_Compensation -right- Parameters
+Phase_Compensation --> nrResourceGrid: Uses
+Phase_Compensation -up-> nrExtractResources: Uses
+Phase_Compensation -down-> nrEqualizeMMSE: Uses
+Phase_Compensation -left-> nrChannelEstimate: Uses
+
+@enduml
