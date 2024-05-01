@@ -1,9 +1,9 @@
 function app = Complet_Simulation(app)
 
-%try
+try
     if app.Pam_sim.Simple_sim
         if ~app.Pam_sim.Transmision_IMG
-        d = uiprogressdlg(app.ChannelEstimationwithANNUIFigure,'Title','Please Wait',...
+        d = uiprogressdlg(app.DLS5GUIFigure,'Title','Please Wait',...
                     'Message','Opening the application');
         end
     end
@@ -222,6 +222,7 @@ function app = Complet_Simulation(app)
             app.Pam_sim = Matrix_metricas(app.Pam_sim);
 
             %% PLOT RECONSTRUCTED IMAGES
+            drawnow
             if app.Pam_sim.Transmision_IMG
                 %figure
 
@@ -267,22 +268,21 @@ function app = Complet_Simulation(app)
             Save_parameters(app.Parameters);
         end
        
-        %y = uialert(app.ChannelEstimationwithANNUIFigure,["Simulation completed"],"Simulation end","Icon","success");
-        y = uiprogressdlg(app.ChannelEstimationwithANNUIFigure,'Title','Simulation','Message',"Vel "+string(Velo)+" completed");
+        %y = uialert(app.DLS5GUIFigure,["Simulation completed"],"Simulation end","Icon","success");
+        y = uiprogressdlg(app.DLS5GUIFigure,'Title','Simulation','Message',"Vel "+string(Velo)+" completed");
         pause(.2)
     end
-    uialert(app.ChannelEstimationwithANNUIFigure,["Simulation completed"],"Simulation end","Icon","success");
+    uialert(app.DLS5GUIFigure,["Simulation completed"],"Simulation end","Icon","success");
     if app.Pam_sim.Simple_sim
         if ~app.Pam_sim.Transmision_IMG
         close(d)
         end
     end
 
-% catch error
-%     x = 0 ;
-%     uialert(app.ChannelEstimationwithANNUIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
-% end
-%uialert(app.UIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
+catch error
+    x = 0 ;
+    uialert(app.DLS5GUIFigure,['  There was an error! The message was:   ',error.message, ' the identifier was: ',error.identifier,],"Invalid File","Icon","error");
+end
 %% ------------------------------- END SIMULATION --------------------------------------
 
 
