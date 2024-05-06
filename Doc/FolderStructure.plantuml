@@ -14,8 +14,8 @@ scale 1800*1800
         LineColor black
     }
     folder {
-        Fontcolor  #FFFFFF
-        BackGroundColor #004073
+        Fontcolor  #000000
+        'BackGroundColor #004073
         LineThickness 1
         LineColor black
     }
@@ -40,7 +40,7 @@ scale 1800*1800
 
 node "Data plotting" as "Storage"{
     folder "Graph_Functions" {
-        [Scrits for Plot controlling and image generation]
+        [Scripts for Plot controlling and image generation]
         ' file "about_us.mlp"
         ' file "NR5G.mlap"
     }

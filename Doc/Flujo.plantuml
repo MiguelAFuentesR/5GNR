@@ -1,0 +1,176 @@
+@startuml Real
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam ArrowColor #707070
+skinparam defaultBackgroundColor #ffffff
+skinparam noteBackgroundColor #f3f3f3
+skinparam noteBorderColor #707070
+skinparam activityBackgroundColor #eaf3fc
+skinparam activityBorderColor #707070
+skinparam activityArrowColor #707070
+
+start
+:Set up initial simulation parameters;
+repeat
+    :Update system changes every Slot;
+    :Transmit signal;
+    :Transmission through channel;
+    :Receive signal;
+    :Estimate channel;
+    :Calculate performance metrics;
+    :Display metrics on the interface;
+    :Update interface;
+repeat while (Stop simulation?)
+stop
+@enduml
+
+
+/'@startuml Flowchart
+
+'left to right direction
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+
+<style>
+node {
+  Fontcolor #000000
+  LineThickness 1
+  LineColor black
+}
+folder {
+  Fontcolor  #000000
+  'BackGroundColor #004073
+  LineThickness 1
+  LineColor black
+}
+package {
+  'BackGroundColor #025080
+  LineThickness 1
+  LineColor black
+}
+
+file {
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+
+component{
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+</style>
+
+start
+
+:SNR Selection;
+
+:Data Type Selection;
+
+:Estimation Models Selection;
+
+:Start Transmission Simulation;
+
+while (Channel) is (in channels)
+    :Set Channel;
+    while (Modulation) is (in modulations)
+        :Set Modulation;
+        while (Speed) is (in speeds)
+            :Set User Speed;
+            while (SNR) is (in SNR(dB))
+                :Configure Carrier, Modulation, and Channel;
+                :Parameter Initialization;
+                while (Slot) is (Slots per \n frames sent)
+                    :Slot Processing;
+                    :Channel Estimation;
+                    :Configure Phase Compensation;
+                    :Slot Metrics;
+                endwhile
+            endwhile
+            :Matrix Metrics (each dB);
+        endwhile
+    endwhile
+endwhile
+
+partition End {
+    :Save Parameters;
+}
+@enduml
+
+'/
+/'@startuml Flujograma
+
+'left to right direction
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 25
+
+<style>
+node {
+  Fontcolor #000000
+  LineThickness 1
+  LineColor black
+}
+folder {
+  Fontcolor  #000000
+  'BackGroundColor #004073
+  LineThickness 1
+  LineColor black
+}
+package {
+  'BackGroundColor #025080
+  LineThickness 1
+  LineColor black
+}
+
+file {
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+
+component{
+  BackGroundColor #d3d6de
+  LineThickness 1
+  LineColor black
+}
+</style>
+
+start
+
+:Seleccion SNR;
+
+:Seleccion de tipo de datos a transmitir;
+
+:Seleccionar Modelos de Estimación;
+
+:Iniciar Simulación de Transmisión;
+
+while (Canal) is (en canales)
+    :Establecer Canal;
+    while (Modulación) is (en modulaciones)
+        :Establecer Modulación;
+        while (Velocidad) is (en velocidades)
+            :Establecer Velocidad del Usuario;
+            while (SNR) is (en SNR(dB))
+                :Configurar Portadora, Modulación y Canal;
+                :Inicialización de Parámetros;
+                while (Slot) is (Slots por \n frames enviados)
+                    :Procesamiento de Slot;
+                    :Estimación de Canal;
+                    :Configurar Compensación de Fase;
+                    :Métricas del Slot;
+                endwhile
+            endwhile
+            :Métricas Matriz (cada dB);
+        endwhile
+    endwhile
+endwhile
+
+partition End {
+    :Guardar Parámetros;
+}
+@enduml
+'/

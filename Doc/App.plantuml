@@ -14,13 +14,13 @@ node {
   LineColor black
 }
 folder {
-  Fontcolor  #FFFFFF
-  BackGroundColor #004073
+  Fontcolor  #000000
+  'BackGroundColor #004073
   LineThickness 1
   LineColor black
 }
 package {
-  BackGroundColor #025080
+  'BackGroundColor #025080
   LineThickness 1
   LineColor black
 }
@@ -42,7 +42,7 @@ node "DLS 5G/6G" as "n1"{
 
 
 
-  actor Usuario as User
+  actor User as User
 
 
   package "Parameters" as parameters{

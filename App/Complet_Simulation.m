@@ -253,7 +253,10 @@ try
                     end
                     %xlabel(string(max(abs(double(app.Pam_sim.Image(:)) - double(reconstructed(:))))));
                     err = immse(double(reconstructed(:)), double(app.Pam_sim.Image(:)));
-                    xlabel("Error : "+string(err));
+                    % Calcular el porcentaje de error
+                    porcentaje_error = ssim(reconstructed,app.Pam_sim.Image)*100;
+                    xlabel({"The similarity is : "+string(porcentaje_error)+" % ","Wrong pixels (MSE): "+string(err)})
+  
                 end
                 disp("Fin plot")
 
