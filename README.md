@@ -6,7 +6,7 @@ This directory presents the DLS5G/6G tool, an App designed to interact with ANN 
 Within this repertoire are CNN network designs, AutoEncoders and Denoising, together with a simulation and learning environment adaptable to user needs in real environments.
 
 
-
+* [Published Articles](https://github.com/MiguelAFuentesR/5GNR/tree/main/Academic%20Productions)
 
 
 # Técnicas de Deep Learning enfocadas a la estimación adaptativa de canales en redes de quinta generación
