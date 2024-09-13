@@ -1,3 +1,13 @@
+## Deep Learning techniques for adaptive channel estimation in fifth-generation networks
+## 5GNR APP - DLS5G/6G (Deep Learning Simulations for 5G/6G communications)
+
+This directory presents the DLS5G/6G tool, an App designed to interact with ANN models developed for dynamic channel estimation in 5G networks, allowing real-time testing, analysis of simulated data and testing new configurations.
+
+Within this repertoire are CNN network designs, AutoEncoders and Denoising, together with a simulation and learning environment adaptable to user needs in real environments.
+
+
+
+
 
 # Técnicas de Deep Learning enfocadas a la estimación adaptativa de canales en redes de quinta generación
 ## APP 5GNR - DLS5G/6G (Deep Learning Simulations for 5G/6G communications)
